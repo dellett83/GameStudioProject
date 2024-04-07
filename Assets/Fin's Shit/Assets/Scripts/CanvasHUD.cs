@@ -7,8 +7,9 @@ public class CanvasHUD : MonoBehaviour
 
     public GameObject PanelStart;
     public GameObject PanelStop;
+    public GameObject PanelSettings;
 
-    public Button buttonHost, buttonServer, buttonClient, buttonStop;
+    public Button buttonHost, buttonServer, buttonClient, buttonStop, buttonSettings, buttonBack;
 
     public InputField inputFieldAddress;
 
@@ -29,6 +30,10 @@ public class CanvasHUD : MonoBehaviour
         buttonServer.onClick.AddListener(ButtonServer);
         buttonClient.onClick.AddListener(ButtonClient);
         buttonStop.onClick.AddListener(ButtonStop);
+
+        buttonSettings.onClick.AddListener(ButtonSettings);
+        buttonBack.onClick.AddListener(ButtonBack);
+
 
         //This updates the Unity canvas, we have to manually call it every change, unlike legacy OnGUI.
         SetupCanvas();
@@ -79,10 +84,21 @@ public class CanvasHUD : MonoBehaviour
         SetupCanvas();
     }
 
+    public void ButtonSettings()
+    {
+        PanelSettings.SetActive(true);
+        PanelStart.SetActive(false);
+    }
+
+    public void ButtonBack()
+    {
+        PanelSettings.SetActive(false);
+        SetupCanvas();
+    }
+
     public void SetupCanvas()
     {
-        // Here we will dump majority of the canvas UI that may be changed.
-
+    // Here we will dump majority of the canvas UI that may be changed.
         if (!NetworkClient.isConnected && !NetworkServer.active)
         {
             if (NetworkClient.active)
@@ -95,6 +111,7 @@ public class CanvasHUD : MonoBehaviour
             {
                 PanelStart.SetActive(true);
                 PanelStop.SetActive(false);
+                PanelSettings.SetActive(false);
             }
         }
         else
