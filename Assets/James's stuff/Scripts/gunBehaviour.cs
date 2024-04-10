@@ -8,7 +8,7 @@ public class gunBehaviour : MonoBehaviour
     public DitzelGames.FastIK.FastIKFabric rightHandIKScript;
 
     public ragdollPlayerMovement playerMovementScript;
-    public bool isRagdoll = false;
+    private bool isRagdoll = false;
     private bool isRagdollChanged = false;
 
     public Camera camera;
@@ -27,11 +27,15 @@ public class gunBehaviour : MonoBehaviour
     public float handHoldForce = 100f;
 
     public float maxAmmo;
-    public float currentAmmo;
-
+    private float currentAmmo;
+    public float fireRate;
     public float reloadTime;
-    public float reloadTimer = 0;
-    public bool reloading = false;
+
+    private float reloadTimer = 0;
+    private bool reloading = false;
+
+    private float fireRateTimer = 0;
+    private bool fireing;
 
 
     // Start is called before the first frame update
@@ -46,13 +50,12 @@ public class gunBehaviour : MonoBehaviour
         rightHandIKScript.enabled = true;
 
         currentAmmo = maxAmmo;
-        //transform.parent = transform.hips;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isRagdoll != playerMovementScript.ragdoll)
+        if (isRagdoll != playerMovementScript.ragdoll) // Update our ragdoll state if it's not the same as the players
         {
             isRagdollChanged = true;
             isRagdoll = playerMovementScript.ragdoll;
@@ -60,8 +63,10 @@ public class gunBehaviour : MonoBehaviour
 
         if (isRagdollChanged && isRagdoll) // Wasn't a ragdoll and now is
         {
+            // reset "just changed"
             isRagdollChanged = false;
 
+            // Hands don't hold gun
             leftHandIKScript.enabled = false;
             rightHandIKScript.enabled = false;
         }
@@ -69,24 +74,25 @@ public class gunBehaviour : MonoBehaviour
         {
             isRagdollChanged = false;
 
+            // Hands hold gun
             leftHandIKScript.enabled = true;
             rightHandIKScript.enabled = true;
 
+            // Put gun back where we want it to be
             transform.position = gunTargetLocation.transform.position;
         }
 
         if (!isRagdoll)
         {
-            // Make gun aim horizontally based on camera horizontal rotation
-            transform.localRotation = Quaternion.Euler(camera.transform.eulerAngles.x - 10, 0, camera.transform.eulerAngles.z + 10);
+            // Make gun aim vertically based on camera horizontal rotation
+            transform.localRotation = Quaternion.Euler(camera.transform.eulerAngles.x, 0, 0);
         }
         else
         {
+            // Gun moves with players right hand when ragdolled
             transform.position = rightHand.transform.position;
             transform.rotation = Quaternion.Euler(-rightHand.transform.eulerAngles);
         }
-        //transform.position = new Vector3(hips.transform.position.x + 0.285f, hips.transform.position.y + 0.3451f, hips.transform.position.z + 0.4258f);
-
 
         // Increases reload timer when reloading
         if (reloading)
@@ -102,18 +108,32 @@ public class gunBehaviour : MonoBehaviour
             }
         }
 
+        // Increase fire timer when fireing (to do with fire rate of gun)
+        if (fireing)
+        {
+            fireRateTimer += Time.deltaTime;
+
+            // Resets timer when enough time has passed allowing player to shoot
+            if (fireRateTimer > fireRate)
+            {
+                fireing = false;
+                fireRateTimer = 0;
+            }
+        }
+
         // Shoot ray from gun and put crosshair over where the ray hits
         RaycastHit aimPoint;
         Physics.Raycast(transform.position, transform.forward, out aimPoint, Mathf.Infinity);
 
         crosshair.transform.position = camera.WorldToScreenPoint(aimPoint.point);
 
-        // Shoots bullet is able to shoot
-        if (!isRagdoll && !reloading && currentAmmo > 0 && Input.GetMouseButtonDown(0))
+        // Shoots bullet if is able to shoot
+        if (!fireing && !isRagdoll && !reloading && currentAmmo > 0 && Input.GetMouseButton(0))
         {
             currentAmmo--;
             // Creates a bullet pointing in the correct direciton
             Instantiate(bullet, shootFromHere.transform.position, transform.rotation);
+            fireing = true;
         }
 
         // Reloads automatically and manually
@@ -121,11 +141,5 @@ public class gunBehaviour : MonoBehaviour
         {
             reloading = true;
         }
-
-        //Vector3 leftForceDirection = (leftHold.transform.position - leftHandRB.transform.position).normalized;
-        //leftHandRB.AddForce(leftForceDirection * handHoldForce * Time.deltaTime, ForceMode.Impulse);
-
-        //Vector3 rightForceDirection = (rightHold.transform.position - rightHandRB.transform.position).normalized;
-        //rightHandRB.AddForce(rightForceDirection * handHoldForce * Time.deltaTime, ForceMode.Impulse);
     }
 }

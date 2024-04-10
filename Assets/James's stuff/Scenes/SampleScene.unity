@@ -1652,8 +1652,6 @@ MonoBehaviour:
   stoppingForce: 10
   diveForce: 10
   ragdollTimerEnd: 3
-  ragdollTimer: 0
-  ragdollTimerStart: 0
   ragdoll: 0
   rotationForce: 100
 --- !u!1 &805047688
@@ -2683,8 +2681,6 @@ MonoBehaviour:
   stoppingForce: 10
   diveForce: 10
   ragdollTimerEnd: 3
-  ragdollTimer: 0
-  ragdollTimerStart: 0
   ragdoll: 0
   rotationForce: 100
 --- !u!1 &1330720690 stripped
@@ -2942,8 +2938,6 @@ MonoBehaviour:
   stoppingForce: 10
   diveForce: 10
   ragdollTimerEnd: 3
-  ragdollTimer: 0
-  ragdollTimerStart: 0
   ragdoll: 0
   rotationForce: 100
 --- !u!54 &1478396216
@@ -3220,8 +3214,6 @@ MonoBehaviour:
   stoppingForce: 10
   diveForce: 10
   ragdollTimerEnd: 3
-  ragdollTimer: 0
-  ragdollTimerStart: 0
   ragdoll: 0
   rotationForce: 100
 --- !u!54 &1574047105
@@ -4115,8 +4107,6 @@ MonoBehaviour:
   stoppingForce: 200
   diveForce: 10
   ragdollTimerEnd: 3
-  ragdollTimer: 0
-  ragdollTimerStart: 0
   ragdoll: 0
   rotationForce: 100
 --- !u!1 &2115831515
@@ -4332,6 +4322,26 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.00017978658
       objectReference: {fileID: 0}
+    - target: {fileID: 3392406902696351774, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392406902696351774, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392406902696351774, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392406902696351774, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.181
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392406902696351774, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2635
+      objectReference: {fileID: 0}
     - target: {fileID: 3398609207279529159, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4360,6 +4370,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.00017978658
       objectReference: {fileID: 0}
+    - target: {fileID: 3509324227067112091, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.181
+      objectReference: {fileID: 0}
+    - target: {fileID: 3509324227067112091, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.26349992
+      objectReference: {fileID: 0}
     - target: {fileID: 4213975354695661059, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
       propertyPath: m_FollowOffset.y
       value: -0.79
@@ -4368,13 +4386,21 @@ PrefabInstance:
       propertyPath: m_FollowOffset.z
       value: -2.77
       objectReference: {fileID: 0}
+    - target: {fileID: 4562654323986970608, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.692
+      objectReference: {fileID: 0}
     - target: {fileID: 5647483743511017185, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
       propertyPath: m_Mass
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6241061518737350289, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
       propertyPath: m_Orbits.Array.data[0].m_Radius
-      value: 2.72
+      value: 1.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241061518737350289, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
+      propertyPath: m_Orbits.Array.data[1].m_Radius
+      value: 4.53
       objectReference: {fileID: 0}
     - target: {fileID: 6241061518737350289, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
       propertyPath: m_Orbits.Array.data[2].m_Height
@@ -4456,6 +4482,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 8527366134650278114, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
+      propertyPath: fireRate
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8527366134650278114, guid: a7c17ed707ec217469957caef03dcf92, type: 3}
       propertyPath: crosshair
       value: 

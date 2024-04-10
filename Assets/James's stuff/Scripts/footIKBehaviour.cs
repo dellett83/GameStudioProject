@@ -27,6 +27,7 @@ public class footIKBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If we're a ragdoll, let feet be a ragdoll and end script there
         if (playerMovementScript.ragdoll)
         {
             leftFootIKScript.enabled = false;
@@ -35,9 +36,7 @@ public class footIKBehaviour : MonoBehaviour
             return;
         }
 
-
-
-
+        // Check if hips are too far from ground, make feet ragdoll
         RaycastHit[] hits;
         Ray ray = new Ray(leftUpLeg.transform.position, -Vector3.up);
         hits = Physics.RaycastAll(ray);
@@ -48,10 +47,10 @@ public class footIKBehaviour : MonoBehaviour
 
                 leftFootIKScript.enabled = false;
                 rightFootIKScript.enabled = false;
-                //return;
             }
         }
 
+        // Check if left upper leg is close enough to ground, make left foot go to left target using IK
         RaycastHit[] hitsl;
         Ray rayl = new Ray(leftUpLeg.transform.position, -Vector3.up);
         hitsl = Physics.RaycastAll(rayl);
@@ -66,6 +65,7 @@ public class footIKBehaviour : MonoBehaviour
             }
         }
 
+        // Check if right upper leg is close enough to ground, make right foot go to left target using IK
         RaycastHit[] hitsr;
         Ray rayr = new Ray(rightUpLeg.transform.position, -Vector3.up);
         hitsr = Physics.RaycastAll(rayr);

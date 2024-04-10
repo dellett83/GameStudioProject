@@ -23,8 +23,8 @@ public class ragdollPlayerMovement : MonoBehaviour
     public float stoppingForce = 10f;
     public float diveForce = 10f;
     public float ragdollTimerEnd = 3f;
-    public float ragdollTimer = 0f;
-    public bool ragdollTimerStart = false;
+    private float ragdollTimer = 0f;
+    private bool ragdollTimerStart = false;
     public bool ragdoll = false;
     public float rotationForce = 100f;
 
@@ -82,6 +82,7 @@ public class ragdollPlayerMovement : MonoBehaviour
         // Always face direciton of camera
         float rotationDifference = camera.transform.eulerAngles.y - transform.eulerAngles.y;
 
+        // Forgot why you need to do this
         if (rotationDifference > 180f)
         {
             rotationDifference -= 360f;
@@ -92,7 +93,6 @@ public class ragdollPlayerMovement : MonoBehaviour
         }
 
         float torqueStrength = rotationDifference * rotationForce;
-
         rb.AddTorque(Vector3.up * torqueStrength * Time.deltaTime);
 
         // Calculate correct movement direciton based on camera angle and player input
@@ -101,7 +101,7 @@ public class ragdollPlayerMovement : MonoBehaviour
 
         Vector3 cameraForward = camera.transform.forward;
         Vector3 cameraRight = camera.transform.right;
-        cameraForward.y = 0;
+        cameraForward.y = 0; // Don't want any movement in Y
         cameraRight.y = 0;
         cameraForward = cameraForward.normalized;
         cameraRight = cameraRight.normalized;
@@ -112,7 +112,7 @@ public class ragdollPlayerMovement : MonoBehaviour
         Vector3 cameraRelativeMovement = forwardRelativeVertical + rightRelativeHorizontal;
 
 
-        // If no input, apply force in opposite direction to movement to stop moving
+        // If no input, apply force in opposite direction to movement to stop moving (means if (for example) moving forward then user inputs right will take time for forward speed to bleed off (may change later))
         if (cameraRelativeMovement == new Vector3(0f, 0f, 0f))
         {
             Vector3 normalizedVel = rb.velocity.normalized;
@@ -139,7 +139,6 @@ public class ragdollPlayerMovement : MonoBehaviour
 
             rb.velocity = newVelocity;
         }
-
 
         // Check if they're within floating height of the ground
         RaycastHit[] hits;
