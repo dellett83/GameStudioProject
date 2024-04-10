@@ -35,20 +35,20 @@ public class footIKBehaviour : MonoBehaviour
             return;
         }
 
-        leftFootIKScript.enabled = true;
-        rightFootIKScript.enabled = true;
+
+
 
         RaycastHit[] hits;
         Ray ray = new Ray(leftUpLeg.transform.position, -Vector3.up);
         hits = Physics.RaycastAll(ray);
         for (int i = 0; i < hits.Length; i++)
         {
-            if (hits[i].transform.gameObject.CompareTag("Ground") && leftUpLeg.transform.position.y - hits[i].point.y >= detectFloorHeight)
+            if (hits[i].transform.gameObject.CompareTag("Ground") && transform.position.y - hits[i].point.y > detectFloorHeight)
             {
 
                 leftFootIKScript.enabled = false;
                 rightFootIKScript.enabled = false;
-                return;
+                //return;
             }
         }
 
@@ -57,10 +57,11 @@ public class footIKBehaviour : MonoBehaviour
         hitsl = Physics.RaycastAll(rayl);
         for (int i = 0; i < hitsl.Length; i++)
         {
-            if (hits[i].transform.gameObject.CompareTag("Ground") && leftUpLeg.transform.position.y - hitsl[i].point.y < detectFloorHeight)
+            if (hitsl[i].transform.gameObject.CompareTag("Ground") && leftUpLeg.transform.position.y - hitsl[i].point.y < detectFloorHeight)
             {
-
                 Debug.DrawLine(leftUpLeg.transform.position, hitsl[i].point);
+
+                leftFootIKScript.enabled = true;
                 leftTarget.transform.position = hitsl[i].point;
             }
         }
@@ -72,8 +73,9 @@ public class footIKBehaviour : MonoBehaviour
         {
             if (hitsr[i].transform.gameObject.CompareTag("Ground") && rightUpLeg.transform.position.y - hitsr[i].point.y < detectFloorHeight)
             {
-
                 Debug.DrawLine(rightUpLeg.transform.position, hitsr[i].point);
+
+                rightFootIKScript.enabled = true;
                 rightTarget.transform.position = hitsr[i].point;
             }
         }
