@@ -80,7 +80,7 @@ public class ragdollPlayerMovement : MonoBehaviour
         }
 
         // Always face direciton of camera
-        float rotationDifference = camera.transform.eulerAngles.y - hips.transform.eulerAngles.y;
+        float rotationDifference = camera.transform.eulerAngles.y - transform.eulerAngles.y;
 
         if (rotationDifference > 180f)
         {
@@ -143,14 +143,14 @@ public class ragdollPlayerMovement : MonoBehaviour
 
         // Check if they're within floating height of the ground
         RaycastHit[] hits;
-        Ray ray = new Ray(hips.transform.position, -Vector3.up);
+        Ray ray = new Ray(transform.position, -Vector3.up);
         hits = Physics.RaycastAll(ray);
         for (int i = 0; i < hits.Length; i++)
         {
-            if (hits[i].transform.gameObject.CompareTag("Ground") && hips.transform.position.y - hits[i].point.y < floatingHeight)
+            if (hits[i].transform.gameObject.CompareTag("Ground") && transform.position.y - hits[i].point.y < floatingHeight)
             {
 
-                Debug.DrawLine(hips.transform.position, hits[i].point);
+                Debug.DrawLine(transform.position, hits[i].point);
                 // Apply correct force to make it float nicely (idk how it works)
                 CharacterFloat(hits[i]);
 
