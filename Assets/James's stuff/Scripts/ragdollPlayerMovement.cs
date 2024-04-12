@@ -140,22 +140,18 @@ public class ragdollPlayerMovement : MonoBehaviour
             rb.velocity = newVelocity;
         }
 
-        // Check if they're within floating height of the ground
-        RaycastHit[] hits;
-        Ray ray = new Ray(transform.position, -Vector3.up);
-        hits = Physics.RaycastAll(ray);
-        for (int i = 0; i < hits.Length; i++)
+
+        RaycastHit floatPoint = ReturnHighestGround();
+
+        // If highest point is within floating distance, float
+        if (transform.position.y - floatPoint.point.y < floatingHeight)
         {
-            if (hits[i].transform.gameObject.CompareTag("Ground") && transform.position.y - hits[i].point.y < floatingHeight)
-            {
+            Debug.DrawLine(transform.position, floatPoint.point);
+            // Apply correct force to make it float nicely (idk how it works)
+            CharacterFloat(floatPoint);
 
-                Debug.DrawLine(transform.position, hits[i].point);
-                // Apply correct force to make it float nicely (idk how it works)
-                CharacterFloat(hits[i]);
-
-                // Make it so player can jump if they touch the ground
-                canJump = true;
-            }
+            // Make it so player can jump if they touch the ground
+            canJump = true;
         }
 
         // Apply force upwards to the head
@@ -186,5 +182,28 @@ public class ragdollPlayerMovement : MonoBehaviour
         float springForce = (x * floatingForce) - (relVel * floatForceDampener);
 
         rb.AddForce(rayDir * springForce * Time.deltaTime);
+    }
+
+    RaycastHit ReturnHighestGround()
+    {
+        RaycastHit[] hits;
+        Ray ray = new Ray(transform.position, -Vector3.up);
+        hits = Physics.RaycastAll(ray);
+        float highest = -10000f;
+        RaycastHit floatPoint = new RaycastHit();
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].transform.gameObject.CompareTag("Ground"))
+            {
+                if (hits[i].point.y > highest)
+                {
+                    highest = hits[i].point.y;
+                    floatPoint = hits[i];
+                }
+            }
+        }
+
+        return floatPoint;
     }
 }

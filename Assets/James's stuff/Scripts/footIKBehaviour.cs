@@ -33,89 +33,88 @@ public class footIKBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        leftFootIKScript.enabled = false;
+        rightFootIKScript.enabled = false;
+
         // If we're a ragdoll, let feet be a ragdoll and end script there
         if (playerMovementScript.ragdoll)
         {
-            leftFootIKScript.enabled = false;
-            rightFootIKScript.enabled = false;
-
             return;
         }
 
-        // Check if hips are too far from ground, make feet ragdoll
+
+        RaycastHit highestGroundl = ReturnHighestGround(leftUpLeg);
+
+        if (leftUpLeg.transform.position.y - highestGroundl.point.y < detectFloorHeight)
+        {
+            Debug.DrawLine(leftUpLeg.transform.position, highestGroundl.point);
+
+            leftFootIKScript.enabled = true;
+
+            leftTarget.transform.position = Vector3.Lerp(leftTarget.transform.position, leftTargetTarget, lerpRate);
+
+
+            float distance = (leftTarget.transform.position - highestGroundl.point).magnitude;
+
+            if (distance > takeStepDistance)
+            {
+                Vector3 direction = (leftTarget.transform.position - highestGroundl.point).normalized;
+
+                Vector3 oppositeDirection = -direction;
+
+                Vector3 newPos = (oppositeDirection * takeStepDistance) + highestGroundl.point;
+
+                leftTargetTarget = newPos;
+            }
+        }
+
+
+        RaycastHit highestGroundr = ReturnHighestGround(rightUpLeg);
+
+        if (rightUpLeg.transform.position.y - highestGroundr.point.y < detectFloorHeight)
+        {
+            Debug.DrawLine(rightUpLeg.transform.position, highestGroundr.point);
+
+            rightFootIKScript.enabled = true;
+
+            rightTarget.transform.position = Vector3.Lerp(rightTarget.transform.position, rightTargetTarget, lerpRate);
+
+
+            float distance = (rightTarget.transform.position - highestGroundr.point).magnitude;
+
+            if (distance > takeStepDistance)
+            {
+                Vector3 direction = (rightTarget.transform.position - highestGroundr.point).normalized;
+
+                Vector3 oppositeDirection = -direction;
+
+                Vector3 newPos = (oppositeDirection * takeStepDistance) + highestGroundr.point;
+
+                rightTargetTarget = newPos;
+            }
+        }
+    }
+
+    RaycastHit ReturnHighestGround(GameObject fromHere)
+    {
         RaycastHit[] hits;
-        Ray ray = new Ray(transform.position, -Vector3.up);
+        Ray ray = new Ray(fromHere.transform.position, -Vector3.up);
         hits = Physics.RaycastAll(ray);
+        float highest = -10000f;
+        RaycastHit floatPoint = new RaycastHit();
+
         for (int i = 0; i < hits.Length; i++)
         {
-            if (hits[i].transform.gameObject.CompareTag("Ground") && transform.position.y - hits[i].point.y > detectFloorHeight)
+            if (hits[i].transform.gameObject.CompareTag("Ground"))
             {
-
-                leftFootIKScript.enabled = false;
-                rightFootIKScript.enabled = false;
-            }
-        }
-
-        // Check if left upper leg is close enough to ground, make left foot go to left target using IK
-        RaycastHit[] hitsl;
-        Ray rayl = new Ray(leftUpLeg.transform.position, -Vector3.up);
-        hitsl = Physics.RaycastAll(rayl);
-        for (int i = 0; i < hitsl.Length; i++)
-        {
-            if (hitsl[i].transform.gameObject.CompareTag("Ground") && leftUpLeg.transform.position.y - hitsl[i].point.y < detectFloorHeight)
-            {
-                Debug.DrawLine(leftUpLeg.transform.position, hitsl[i].point);
-
-                leftFootIKScript.enabled = true;
-
-                leftTarget.transform.position = Vector3.Lerp(leftTarget.transform.position, leftTargetTarget, lerpRate);
-                //leftTarget.transform.position = hitsl[i].point;
-
-                // If leftTarget is too far away from hitsl[i].point, we put left target a set distance the opposite side of hitsl[i].point
-
-                float distance = (leftTarget.transform.position - hitsl[i].point).magnitude;
-
-                if (distance > takeStepDistance)
+                if (hits[i].point.y > highest)
                 {
-                    Vector3 direction = (leftTarget.transform.position - hitsl[i].point).normalized;
-
-                    Vector3 oppositeDirection = -direction;
-
-                    Vector3 newPos = (oppositeDirection * takeStepDistance) + hitsl[i].point;
-
-                    leftTargetTarget = newPos;
+                    highest = hits[i].point.y;
+                    floatPoint = hits[i];
                 }
             }
         }
 
-        // Check if right upper leg is close enough to ground, make right foot go to left target using IK
-        RaycastHit[] hitsr;
-        Ray rayr = new Ray(rightUpLeg.transform.position, -Vector3.up);
-        hitsr = Physics.RaycastAll(rayr);
-        for (int i = 0; i < hitsr.Length; i++)
-        {
-            if (hitsr[i].transform.gameObject.CompareTag("Ground") && rightUpLeg.transform.position.y - hitsr[i].point.y < detectFloorHeight)
-            {
-                Debug.DrawLine(rightUpLeg.transform.position, hitsr[i].point);
-
-                rightFootIKScript.enabled = true;
-
-                rightTarget.transform.position = Vector3.Lerp(rightTarget.transform.position, rightTargetTarget, lerpRate);
-
-
-                float distance = (rightTarget.transform.position - hitsr[i].point).magnitude;
-
-                if (distance > takeStepDistance)
-                {
-                    Vector3 direction = (rightTarget.transform.position - hitsr[i].point).normalized;
-
-                    Vector3 oppositeDirection = -direction;
-
-                    Vector3 newPos = (oppositeDirection * takeStepDistance) + hitsr[i].point;
-
-                    rightTargetTarget = newPos;
-                }
-            }
-        }
+        return floatPoint;
     }
 }
