@@ -9372,7 +9372,7 @@ GameObject:
   - component: {fileID: 1308861877}
   - component: {fileID: 1308861876}
   m_Layer: 5
-  m_Name: crosshair
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16469,7 +16469,7 @@ GameObject:
   - component: {fileID: 2062870589}
   - component: {fileID: 2062870591}
   m_Layer: 0
-  m_Name: Main
+  m_Name: Main Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

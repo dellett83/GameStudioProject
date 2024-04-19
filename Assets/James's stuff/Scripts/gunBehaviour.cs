@@ -11,8 +11,8 @@ public class gunBehaviour : MonoBehaviour
     private bool isRagdoll = false;
     private bool isRagdollChanged = false;
 
-    public Camera camera;
-    public GameObject crosshair;
+    Camera camera;
+    private GameObject crosshair;
 
     public GameObject bullet;
     public GameObject shootFromHere;
@@ -46,6 +46,9 @@ public class gunBehaviour : MonoBehaviour
 
     void Awake()
     {
+        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        crosshair = GameObject.Find("Crosshair");
+
         leftHandIKScript.enabled = true;
         rightHandIKScript.enabled = true;
 

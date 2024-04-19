@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class ragdollPlayerMovement : MonoBehaviour
 {
-    public Rigidbody rb;
-    public new GameObject camera;
-    public GameObject hips;
-    public Rigidbody headRb;
+    public Rigidbody hipsRB;
+    Camera camera;
+    public Rigidbody headRB;
 
     // Can make most private just public for initial development
     private bool canJump = true;
@@ -32,6 +31,11 @@ public class ragdollPlayerMovement : MonoBehaviour
     void Start()
     {
         
+    }
+
+    void Awake()
+    {
+        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -61,7 +65,7 @@ public class ragdollPlayerMovement : MonoBehaviour
         if(Input.GetKeyDown("left shift"))
         {
             ragdoll = true;
-            rb.AddForce((camera.transform.forward + new Vector3(0.0f, 1.0f, 0.0f)) * diveForce, ForceMode.Impulse);
+            hipsRB.AddForce((camera.transform.forward + new Vector3(0.0f, 1.0f, 0.0f)) * diveForce, ForceMode.Impulse);
             ragdollTimerStart = true;
             return;
         }
@@ -93,7 +97,7 @@ public class ragdollPlayerMovement : MonoBehaviour
         }
 
         float torqueStrength = rotationDifference * rotationForce;
-        rb.AddTorque(Vector3.up * torqueStrength * Time.deltaTime);
+        hipsRB.AddTorque(Vector3.up * torqueStrength * Time.deltaTime);
 
         // Calculate correct movement direciton based on camera angle and player input
         float verticalInput = Input.GetAxis("Vertical");
@@ -115,29 +119,29 @@ public class ragdollPlayerMovement : MonoBehaviour
         // If no input, apply force in opposite direction to movement to stop moving (means if (for example) moving forward then user inputs right will take time for forward speed to bleed off (may change later))
         if (cameraRelativeMovement == new Vector3(0f, 0f, 0f))
         {
-            Vector3 normalizedVel = rb.velocity.normalized;
+            Vector3 normalizedVel = hipsRB.velocity.normalized;
             normalizedVel.y = 0f;
-            rb.AddForce(-normalizedVel * stoppingForce * Time.deltaTime, ForceMode.Impulse);
+            hipsRB.AddForce(-normalizedVel * stoppingForce * Time.deltaTime, ForceMode.Impulse);
         }
         else
         {
-            rb.AddForce(cameraRelativeMovement * movementAcceleration * Time.deltaTime, ForceMode.Impulse);
+            hipsRB.AddForce(cameraRelativeMovement * movementAcceleration * Time.deltaTime, ForceMode.Impulse);
         }
 
         // Velocity in only horizontal direction
-        Vector3 nonVertVel = new Vector3 (rb.velocity.x, 0f, rb.velocity.z);
+        Vector3 nonVertVel = new Vector3 (hipsRB.velocity.x, 0f, hipsRB.velocity.z);
 
         // Speed in only horizontal is faster than speed limit
         if (nonVertVel.magnitude >= movementSpeedLimit)
         {
             // Limit speed but not in y
-            float currentYVel = rb.velocity.y;
+            float currentYVel = hipsRB.velocity.y;
 
-            Vector3 newVelocity = rb.velocity.normalized * movementSpeedLimit;
+            Vector3 newVelocity = hipsRB.velocity.normalized * movementSpeedLimit;
 
             newVelocity.y = currentYVel;
 
-            rb.velocity = newVelocity;
+            hipsRB.velocity = newVelocity;
         }
 
 
@@ -155,13 +159,13 @@ public class ragdollPlayerMovement : MonoBehaviour
         }
 
         // Apply force upwards to the head
-        headRb.AddForce(Vector3.up * headFloatingForce * Time.deltaTime);
+        headRB.AddForce(Vector3.up * headFloatingForce * Time.deltaTime);
 
         // Jump if press space
         if (canJump && Input.GetKeyDown(KeyCode.Space))
         {
             // Apply force upwards to jump
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+            hipsRB.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
 
             // Can't jump until touch ground again
             canJump = false;
@@ -170,7 +174,7 @@ public class ragdollPlayerMovement : MonoBehaviour
 
     void CharacterFloat(RaycastHit hit)
     {
-        Vector3 vel = rb.velocity;
+        Vector3 vel = hipsRB.velocity;
         Vector3 rayDir = transform.TransformDirection(-Vector3.up);
 
         Vector3 otherVel = Vector3.zero;
@@ -181,7 +185,7 @@ public class ragdollPlayerMovement : MonoBehaviour
         float x = hit.distance - floatingHeight;
         float springForce = (x * floatingForce) - (relVel * floatForceDampener);
 
-        rb.AddForce(rayDir * springForce * Time.deltaTime);
+        hipsRB.AddForce(rayDir * springForce * Time.deltaTime);
     }
 
     RaycastHit ReturnHighestGround()
