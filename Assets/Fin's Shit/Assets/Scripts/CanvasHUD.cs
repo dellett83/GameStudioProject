@@ -8,8 +8,9 @@ public class CanvasHUD : MonoBehaviour
     public GameObject PanelStart;
     public GameObject PanelStop;
     public GameObject PanelSettings;
+    public GameObject PanelPlayer;
 
-    public Button buttonHost, buttonServer, buttonClient, buttonStop, buttonSettings, buttonBack;
+    public Button buttonHost, buttonServer, buttonClient, buttonStop, buttonSettings, buttonBack, buttonPlayer;
 
     public InputField inputFieldAddress;
 
@@ -32,6 +33,7 @@ public class CanvasHUD : MonoBehaviour
         buttonStop.onClick.AddListener(ButtonStop);
 
         buttonSettings.onClick.AddListener(ButtonSettings);
+        buttonPlayer.onClick.AddListener(ButtonPlayer);
         buttonBack.onClick.AddListener(ButtonBack);
 
 
@@ -88,12 +90,22 @@ public class CanvasHUD : MonoBehaviour
     {
         PanelSettings.SetActive(true);
         PanelStart.SetActive(false);
+        PanelStop.SetActive(false);
+        PanelPlayer.SetActive(false);
     }
 
     public void ButtonBack()
     {
         PanelSettings.SetActive(false);
         SetupCanvas();
+    }
+
+    public void ButtonPlayer()
+    {
+        PanelSettings.SetActive(false);
+        PanelStart.SetActive(false);
+        PanelStop.SetActive(false);
+        PanelPlayer.SetActive(true);
     }
 
     public void SetupCanvas()
@@ -112,6 +124,7 @@ public class CanvasHUD : MonoBehaviour
                 PanelStart.SetActive(true);
                 PanelStop.SetActive(false);
                 PanelSettings.SetActive(false);
+                PanelPlayer.SetActive(false);
             }
         }
         else
