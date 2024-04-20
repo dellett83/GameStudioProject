@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 using Mirror;
 
 public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 {
     public Rigidbody hipsRB;
-    Camera camera;
+    public Camera camera;
     public Rigidbody headRB;
 
     // Can make most private just public for initial development
@@ -37,6 +38,10 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     void Awake()
     {
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+
+        var vcam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
+        vcam.LookAt = transform;
+        vcam.Follow = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
     }
 
     // Update is called once per frame
