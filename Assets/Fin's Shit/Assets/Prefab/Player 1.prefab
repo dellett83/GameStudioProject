@@ -17,9 +17,9 @@ GameObject:
   - component: {fileID: 1571361921871367675}
   - component: {fileID: 4362987041031211788}
   - component: {fileID: -5844860227378983451}
-  - component: {fileID: -8032818735268509602}
+  - component: {fileID: 1130132048418067213}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1ae16de5e44cc364396afa6108b4ccec, type: 2}
+  - {fileID: 2100000, guid: ce2b755a61e82a54090c1499f7ac704e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 376619516
+  _assetId: 1967490891
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   virtualCamera: {fileID: 0}
---- !u!114 &-8032818735268509602
+--- !u!114 &1130132048418067213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

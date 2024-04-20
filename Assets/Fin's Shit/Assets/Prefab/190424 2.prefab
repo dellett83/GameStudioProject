@@ -803,6 +803,10 @@ PrefabInstance:
       propertyPath: m_Quality
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -681020129550226938, guid: 3351ade39d3d18a41a2a0fc2d10d04de, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce2b755a61e82a54090c1499f7ac704e, type: 2}
     - target: {fileID: -434754596089410186, guid: 3351ade39d3d18a41a2a0fc2d10d04de, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -881,7 +885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3351ade39d3d18a41a2a0fc2d10d04de, type: 3}
       propertyPath: m_Name
-      value: 190424
+      value: 190424 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3351ade39d3d18a41a2a0fc2d10d04de, type: 3}
       propertyPath: m_Layer
@@ -2293,7 +2297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 2533267296
+  _assetId: 593030005
   serverOnly: 0
   visibility: 0
   hasSpawned: 0

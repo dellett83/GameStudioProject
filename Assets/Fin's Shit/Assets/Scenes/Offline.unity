@@ -320,7 +320,7 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 5335080714703850178, guid: 7cfd3d70debe3da4a845bbe106311c36, type: 3}
+  playerPrefab: {fileID: 0}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs: []
@@ -2501,6 +2501,10 @@ MonoBehaviour:
   buttonPlayer1: {fileID: 189250679}
   buttonPlayer2: {fileID: 384818198}
   buttonPlayer3: {fileID: 1727009176}
+  player1: {fileID: 5335080714703850178, guid: 7cfd3d70debe3da4a845bbe106311c36, type: 3}
+  player2: {fileID: 5335080714703850178, guid: 2c75c3756a7027b4ea082c0a023feacf, type: 3}
+  player3: {fileID: 5335080714703850178, guid: 899f4095503c1964dac6a2e1063d0152, type: 3}
+  networkRoomManager: {fileID: 116012262}
 --- !u!1 &1036186331
 GameObject:
   m_ObjectHideFlags: 0

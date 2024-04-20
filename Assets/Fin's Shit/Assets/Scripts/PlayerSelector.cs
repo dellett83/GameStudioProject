@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using Mirror;
 
 public class PlayerSelector : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerSelector : MonoBehaviour
     public Button buttonPlayer1, buttonPlayer2, buttonPlayer3;
 
     public GameObject player1, player2, player3;
+
+    public NetworkRoomManager networkRoomManager;
 
     // Start is called before the first frame update
     void Start()
@@ -26,16 +29,44 @@ public class PlayerSelector : MonoBehaviour
 
     public void ButtonPlayer1()
     {
-        Debug.Log("Player 1");
+        // Debug.Log("Player 1");
+        // //networkRoomManager.roomPlayerPrefab = player1;
+        // NetworkRoomPlayer networkRoomPlayer = player1.GetComponent<NetworkRoomPlayer>();
+        // if (networkRoomPlayer != null){
+        //     networkRoomManager.roomPlayerPrefab = networkRoomPlayer;
+        // }
+        // else{
+        //     Debug.LogError("The selected GameObject does not have a NetworkRoomPlayer component.");
+        // }
+
+        Debug.Log("Player 1 selected");
+        if (player1 != null) {
+            networkRoomManager.playerPrefab = player1.gameObject;  // Direct assignment without casting
+            Debug.Log("Player prefab set to Player 1");
+        } else {
+            Debug.LogError("Player 1 prefab is not assigned!");
+        }
     }
 
     public void ButtonPlayer2()
     {
-        Debug.Log("Player 2");
+        Debug.Log("Player 2 selected");
+        if (player2 != null) {
+            networkRoomManager.playerPrefab = player2.gameObject;  // Direct assignment without casting
+            Debug.Log("Player prefab set to Player 2");
+        } else {
+            Debug.LogError("Player 2 prefab is not assigned!");
+        }
     }
 
     public void ButtonPlayer3()
     {
-        Debug.Log("Player 3");
+        Debug.Log("Player 3 selected");
+        if (player3 != null) {
+            networkRoomManager.playerPrefab = player3.gameObject;  // Direct assignment without casting
+            Debug.Log("Player prefab set to Player 3");
+        } else {
+            Debug.LogError("Player 3 prefab is not assigned!");
+        }
     }
 }
