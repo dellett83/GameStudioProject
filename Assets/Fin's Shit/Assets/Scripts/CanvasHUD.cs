@@ -1,6 +1,7 @@
 using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class CanvasHUD : MonoBehaviour
 {
@@ -10,13 +11,12 @@ public class CanvasHUD : MonoBehaviour
     public GameObject PanelSettings;
     public GameObject PanelPlayer;
 
-    public Button buttonHost, buttonServer, buttonClient, buttonStop, buttonSettings, buttonBack, buttonPlayer;
+    public Button buttonHost, buttonServer, buttonJoin, buttonStop, buttonSettings, buttonBack, buttonPlayer;
 
     public InputField inputFieldAddress;
 
     public Text serverText;
     public Text clientText;
-
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class CanvasHUD : MonoBehaviour
         //Make sure to attach these Buttons in the Inspector
         buttonHost.onClick.AddListener(ButtonHost);
         buttonServer.onClick.AddListener(ButtonServer);
-        buttonClient.onClick.AddListener(ButtonClient);
+        buttonJoin.onClick.AddListener(ButtonClient);
         buttonStop.onClick.AddListener(ButtonStop);
 
         buttonSettings.onClick.AddListener(ButtonSettings);
@@ -61,6 +61,7 @@ public class CanvasHUD : MonoBehaviour
 
     public void ButtonClient()
     {
+        PanelPlayer.SetActive(false);
         NetworkManager.singleton.StartClient();
         SetupCanvas();
     }
