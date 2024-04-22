@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Fin's Shit/Assets/Scenes/Offline.unity
+    path: Assets/Fin + Dan's Shit/Assets/Scenes/Offline.unity
     guid: 7cec4c3f05b72424287717ef3b93e53a
   - enabled: 1
-    path: Assets/Fin's Shit/Assets/Scenes/Room.unity
+    path: Assets/Fin + Dan's Shit/Assets/Scenes/Room.unity
     guid: eb406681874944a4d95bee09adf0e9de
   - enabled: 1
-    path: Assets/Fin's Shit/Assets/Scenes/SampleScene.unity
+    path: Assets/Fin + Dan's Shit/Assets/Scenes/SampleScene.unity
     guid: aa045e56f4ff949c3bcd7e4d80232d7d
   m_configObjects: {}
