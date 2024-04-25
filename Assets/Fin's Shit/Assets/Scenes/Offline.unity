@@ -343,8 +343,13 @@ MonoBehaviour:
   minPlayers: 1
   roomPlayerPrefab: {fileID: 419387876529967081, guid: a8483e12298992049980b8bf215033c5, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
   RoomScene: Assets/Fin + Dan's Shit/Assets/Scenes/Room.unity
   GameplayScene: Assets/Fin + Dan's Shit/Assets/Scenes/SampleScene.unity
+=======
+  RoomScene: Assets/Fin's Shit/Assets/Scenes/Room.unity
+  GameplayScene: Assets/Fin's Shit/Assets/Scenes/SampleScene.unity
+>>>>>>> parent of 1f37180 (networkdiscovery)
 =======
   RoomScene: Assets/Fin's Shit/Assets/Scenes/Room.unity
   GameplayScene: Assets/Fin's Shit/Assets/Scenes/SampleScene.unity
@@ -1126,6 +1131,7 @@ RectTransform:
   - {fileID: 1926490218}
   - {fileID: 565905414}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 2016036352}
   m_Father: {fileID: 1369899124}
   m_RootOrder: -1
@@ -1138,10 +1144,18 @@ RectTransform:
   m_Father: {fileID: 944811516}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  m_Father: {fileID: 944811516}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> parent of 1f37180 (networkdiscovery)
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00012207031, y: -61.38864}
   m_SizeDelta: {x: 0, y: -122.777405}
+<<<<<<< HEAD
+>>>>>>> parent of 1f37180 (networkdiscovery)
+=======
 >>>>>>> parent of 1f37180 (networkdiscovery)
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &384818196
@@ -1455,8 +1469,13 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Spacing: 80.3
   m_ChildForceExpandWidth: 0
+=======
+  m_Spacing: -107.15
+  m_ChildForceExpandWidth: 1
+>>>>>>> parent of 1f37180 (networkdiscovery)
 =======
   m_Spacing: -107.15
   m_ChildForceExpandWidth: 1
@@ -2623,6 +2642,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1398503551}
+<<<<<<< HEAD
+>>>>>>> parent of 1f37180 (networkdiscovery)
+=======
 >>>>>>> parent of 1f37180 (networkdiscovery)
 --- !u!1 &1036186331
 GameObject:
@@ -5874,6 +5896,7 @@ CanvasRenderer:
   m_GameObject: {fileID: 1926490217}
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &2016036351
 GameObject:
   m_ObjectHideFlags: 0
@@ -5939,6 +5962,8 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+=======
+>>>>>>> parent of 1f37180 (networkdiscovery)
 =======
 >>>>>>> parent of 1f37180 (networkdiscovery)
 --- !u!1 &2052231491
