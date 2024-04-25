@@ -37,7 +37,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
     void Awake()
     {
-        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        camera = Camera.main;
 
         var vcam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
         vcam.LookAt = transform;
@@ -215,5 +215,10 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         }
 
         return floatPoint;
+    }
+
+    public void GunRecoil(float recoilForce)
+    {
+        hipsRB.AddForce(-hipsRB.transform.forward * recoilForce, ForceMode.Impulse);
     }
 }

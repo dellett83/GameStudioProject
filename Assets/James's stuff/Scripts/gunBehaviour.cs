@@ -30,12 +30,16 @@ public class gunBehaviour : MonoBehaviour
     private float currentAmmo;
     public float fireRate;
     public float reloadTime;
+    public float playerRecoil;
 
     private float reloadTimer = 0;
     private bool reloading = false;
 
     private float fireRateTimer = 0;
     private bool fireing;
+
+    private Vector3[] aimPoints = new Vector3[4];
+    private bool empty = true;
 
 
     // Start is called before the first frame update
@@ -46,13 +50,54 @@ public class gunBehaviour : MonoBehaviour
 
     void Awake()
     {
-        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        camera = Camera.main;
         crosshair = GameObject.Find("Crosshair");
 
         leftHandIKScript.enabled = true;
         rightHandIKScript.enabled = true;
 
         currentAmmo = maxAmmo;
+    }
+
+    void FixedUpdate()
+    {
+        // In FixedUpdate to slow down how often it changes position to make it smoother.
+        // Also code so ugly it doesn't deserve to run more than 50 times a second.
+
+        // Shoot ray from gun and put crosshair over where the ray hits
+        RaycastHit aimPoint;
+        Physics.Raycast(transform.position, transform.forward, out aimPoint, Mathf.Infinity);
+
+        // DO NOT LOOK AT THIS
+        // Basically holds the last 4 points that were aims at and then averages out where those points were
+        // and puts the corsshair there in an attempt to smooth out the movement
+        if (empty)
+        {
+            bool found = false;
+            for (int i = 0; i < aimPoints.Length; i++)
+            {
+                if (aimPoints[i] == null)
+                {
+                    aimPoints[i] = camera.WorldToScreenPoint(aimPoint.point);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                empty = false;
+            }
+        }
+        else
+        {
+            aimPoints[0] = aimPoints[1];
+            aimPoints[1] = aimPoints[2];
+            aimPoints[2] = aimPoints[3];
+            aimPoints[3] = camera.WorldToScreenPoint(aimPoint.point);
+        }
+
+        Vector3 averagePos = (aimPoints[0] + aimPoints[1] + aimPoints[2] + aimPoints[3]) / 4;
+        crosshair.transform.position = averagePos;
     }
 
     // Update is called once per frame
@@ -124,11 +169,7 @@ public class gunBehaviour : MonoBehaviour
             }
         }
 
-        // Shoot ray from gun and put crosshair over where the ray hits
-        RaycastHit aimPoint;
-        Physics.Raycast(transform.position, transform.forward, out aimPoint, Mathf.Infinity);
-
-        crosshair.transform.position = camera.WorldToScreenPoint(aimPoint.point);
+        
 
         // Shoots bullet if is able to shoot
         if (!fireing && !isRagdoll && !reloading && currentAmmo > 0 && Input.GetMouseButton(0))
@@ -136,6 +177,7 @@ public class gunBehaviour : MonoBehaviour
             currentAmmo--;
             // Creates a bullet pointing in the correct direciton
             Instantiate(bullet, shootFromHere.transform.position, transform.rotation);
+            playerMovementScript.GunRecoil(playerRecoil);
             fireing = true;
         }
 

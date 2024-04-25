@@ -6,6 +6,7 @@ public class bulletBehaviour : MonoBehaviour
 {
     public float bulletSpeed;
     public float bulletDrop;
+    public float knockbackForce;
     private float currentBulletDrop = 0;
 
     // Start is called before the first frame update
@@ -29,6 +30,12 @@ public class bulletBehaviour : MonoBehaviour
     // Bullet destroys when it hits something
     void OnCollisionEnter(Collision col)
     {
+        if(col.gameObject.tag == "Player")
+        {
+            // Apply knockback force if hit a player
+            Rigidbody rb = col.gameObject.GetComponent<Rigidbody>();
+            if(rb != null) rb.AddForce(transform.forward * knockbackForce, ForceMode.Impulse);
+        }
         Destroy(gameObject);
     }
 }
