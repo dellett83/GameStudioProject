@@ -290,6 +290,7 @@ MonoBehaviour:
   maxAmmo: 30
   fireRate: 0.1
   reloadTime: 3
+  playerRecoil: 0
 --- !u!1 &5213728059842466679
 GameObject:
   m_ObjectHideFlags: 0

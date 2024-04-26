@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FreeLook Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 898074884247241278, guid: be3824c9198a22641a96a53d4ea66c2e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8698204965803732675, guid: be3824c9198a22641a96a53d4ea66c2e, type: 3}
       propertyPath: m_RootOrder
       value: 9

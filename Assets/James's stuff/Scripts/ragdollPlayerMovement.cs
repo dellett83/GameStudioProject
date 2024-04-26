@@ -33,21 +33,21 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (isLocalPlayer)
+        {
+
+            camera = Camera.main;
+
+            var vcam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
+            vcam.LookAt = transform;
+            vcam.Follow = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
+
+        }
     }
 
     void Awake()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
 
-        camera = Camera.main;
-
-        var vcam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
-        vcam.LookAt = transform;
-        vcam.Follow = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
     }
 
     // Update is called once per frame
@@ -192,6 +192,13 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
     void CharacterFloat(RaycastHit hit)
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+
+
         Vector3 vel = hipsRB.velocity;
         Vector3 rayDir = transform.TransformDirection(-Vector3.up);
 
@@ -231,6 +238,13 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
     public void GunRecoil(float recoilForce)
     {
+
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+
         hipsRB.AddForce(-hipsRB.transform.forward * recoilForce, ForceMode.Impulse);
     }
 }
