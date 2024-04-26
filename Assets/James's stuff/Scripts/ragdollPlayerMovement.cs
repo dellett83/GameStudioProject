@@ -38,14 +38,16 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
     void Awake()
     {
-        if (isLocalPlayer)
+        if (!isLocalPlayer)
         {
-            camera = Camera.main;
-
-            var vcam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
-            vcam.LookAt = transform;
-            vcam.Follow = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
+            return;
         }
+
+        camera = Camera.main;
+
+        var vcam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
+        vcam.LookAt = transform;
+        vcam.Follow = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
     }
 
     // Update is called once per frame
