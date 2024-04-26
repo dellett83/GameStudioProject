@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Mirror;
+using UnityEngine.UIElements;
 
 public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 {
@@ -47,6 +48,12 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(!isLocalPlayer)
+        {
+            return;
+        }
+
         // Limit to how long can be in ragdoll mode
         if (ragdollTimerStart) ragdollTimer += Time.deltaTime;
 
