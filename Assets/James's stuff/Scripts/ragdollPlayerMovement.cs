@@ -10,6 +10,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public Rigidbody hipsRB;
     public Camera camera;
     public Rigidbody headRB;
+    public GameObject spine;
 
     // Can make most private just public for initial development
     private bool canJump = true;
@@ -33,16 +34,20 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (isLocalPlayer)
-        {
+        //if (isLocalPlayer)
+        //{
 
             camera = Camera.main;
 
             var vcam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
-            vcam.LookAt = transform;
-            vcam.Follow = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
+            vcam.Follow = transform;
+            vcam.LookAt = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
 
-        }
+            var vcam2 = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
+            vcam2.Follow = transform;
+            vcam2.LookAt = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
+
+        //}
     }
 
     void Awake()
@@ -54,10 +59,10 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     void Update()
     {
 
-        if(!isLocalPlayer)
-        {
-            return;
-        }
+        //if(!isLocalPlayer)
+        //{
+            //return;
+        //}
 
         // Limit to how long can be in ragdoll mode
         if (ragdollTimerStart) ragdollTimer += Time.deltaTime;
@@ -80,7 +85,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         if (ragdoll) return;
 
         // Dive mechanic, launch player forward with left shift
-        if(Input.GetKeyDown("left shift"))
+        if (Input.GetKeyDown("left shift"))
         {
             ragdoll = true;
             hipsRB.AddForce((camera.transform.forward + new Vector3(0.0f, 1.0f, 0.0f)) * diveForce, ForceMode.Impulse);
@@ -88,8 +93,10 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             return;
         }
 
+        
+
         // Jump cooldown started
-        if(!canJump)
+        if (!canJump)
         {
             jumpTimer += Time.deltaTime;
         }
@@ -188,17 +195,16 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             // Can't jump until touch ground again
             canJump = false;
         }
+
+        Quaternion currentRot = transform.rotation;
+        transform.rotation = Quaternion.Euler(0, currentRot.eulerAngles.y, 0);
+
+        Quaternion currentRot3 = spine.transform.rotation;
+        //spine.transform.rotation = Quaternion.Euler(0, currentRot3.eulerAngles.y, 0);
     }
 
     void CharacterFloat(RaycastHit hit)
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
-
-
         Vector3 vel = hipsRB.velocity;
         Vector3 rayDir = transform.TransformDirection(-Vector3.up);
 
@@ -239,10 +245,10 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public void GunRecoil(float recoilForce)
     {
 
-        if (!isLocalPlayer)
-        {
-            return;
-        }
+        //if (!isLocalPlayer)
+        //{
+            //return;
+        //}
 
 
         hipsRB.AddForce(-hipsRB.transform.forward * recoilForce, ForceMode.Impulse);

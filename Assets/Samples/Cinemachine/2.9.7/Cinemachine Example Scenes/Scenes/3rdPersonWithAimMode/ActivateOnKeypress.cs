@@ -4,9 +4,7 @@ namespace Cinemachine.Examples
 {
     public class ActivateOnKeypress : MonoBehaviour
     {
-        public KeyCode ActivationKey = KeyCode.LeftControl;
         public int PriorityBoostAmount = 10;
-        public GameObject Reticle;
 
         Cinemachine.CinemachineVirtualCameraBase vcam;
         bool boosted = false;
@@ -21,7 +19,7 @@ namespace Cinemachine.Examples
 #if ENABLE_LEGACY_INPUT_MANAGER
             if (vcam != null)
             {
-                if (Input.GetKey(ActivationKey))
+                if (Input.GetMouseButton(1))
                 {
                     if (!boosted)
                     {
@@ -35,11 +33,8 @@ namespace Cinemachine.Examples
                     boosted = false;
                 }
             }
-
-            if (Reticle != null)
-                Reticle.SetActive(boosted);
 #else
-        InputSystemHelper.EnableBackendsWarningMessage();
+            InputSystemHelper.EnableBackendsWarningMessage();
 #endif
         }
     }
