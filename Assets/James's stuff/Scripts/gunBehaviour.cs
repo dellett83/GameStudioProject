@@ -11,7 +11,7 @@ public class gunBehaviour : MonoBehaviour
     private bool isRagdoll = false;
     private bool isRagdollChanged = false;
 
-    Camera camera;
+    private Camera camera;
     private GameObject crosshair;
 
     public GameObject bullet;
@@ -66,13 +66,14 @@ public class gunBehaviour : MonoBehaviour
 
         // Shoot ray from gun and put crosshair over where the ray hits
         RaycastHit aimPoint;
-        Physics.Raycast(transform.position, transform.forward, out aimPoint, Mathf.Infinity);
+        Physics.Raycast(shootFromHere.transform.position, transform.forward, out aimPoint, Mathf.Infinity);
 
         // DO NOT LOOK AT THIS
         // Basically holds the last 4 points that were aims at and then averages out where those points were
         // and puts the corsshair there in an attempt to smooth out the movement
         if (empty)
         {
+            // Makes sure array is full (crosshair doesnt work for first 4/50 of a second but flip you)
             bool found = false;
             for (int i = 0; i < aimPoints.Length; i++)
             {
@@ -90,14 +91,16 @@ public class gunBehaviour : MonoBehaviour
         }
         else
         {
+            // Cycles last 3 positions up getting rid of the 4th and adds the current position
             aimPoints[0] = aimPoints[1];
             aimPoints[1] = aimPoints[2];
             aimPoints[2] = aimPoints[3];
             aimPoints[3] = camera.WorldToScreenPoint(aimPoint.point);
-        }
 
-        Vector3 averagePos = (aimPoints[0] + aimPoints[1] + aimPoints[2] + aimPoints[3]) / 4;
-        crosshair.transform.position = averagePos;
+            // Finds average position of the last 4 positions
+            Vector3 averagePos = (aimPoints[0] + aimPoints[1] + aimPoints[2] + aimPoints[3]) / 4;
+            crosshair.transform.position = averagePos;
+        }
     }
 
     // Update is called once per frame
@@ -111,7 +114,7 @@ public class gunBehaviour : MonoBehaviour
 
         if (isRagdollChanged && isRagdoll) // Wasn't a ragdoll and now is
         {
-            // reset "just changed"
+            // Reset "just changed"
             isRagdollChanged = false;
 
             // Hands don't hold gun
@@ -132,8 +135,15 @@ public class gunBehaviour : MonoBehaviour
 
         if (!isRagdoll)
         {
-            // Make gun aim vertically based on camera horizontal rotation
-            transform.localRotation = Quaternion.Euler(camera.transform.eulerAngles.x, 0, 0);
+            if (Input.GetMouseButton(1))
+            {
+                transform.rotation = Quaternion.Euler(camera.transform.eulerAngles.x, camera.transform.eulerAngles.y, camera.transform.eulerAngles.z);
+            }
+            else
+            {
+                // Make gun aim vertically based on camera horizontal rotation
+                transform.localRotation = Quaternion.Euler(camera.transform.eulerAngles.x, 0, 0);
+            }
         }
         else
         {

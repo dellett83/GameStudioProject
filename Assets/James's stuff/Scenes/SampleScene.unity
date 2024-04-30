@@ -2074,6 +2074,7 @@ MonoBehaviour:
   jumpForce: 10
   movementAcceleration: 100
   movementSpeedLimit: 10
+  scopedMovementSpeedLimit: 1
   stoppingForce: 10
   diveForce: 10
   ragdollTimerEnd: 3
@@ -3034,6 +3035,7 @@ MonoBehaviour:
   jumpForce: 10
   movementAcceleration: 100
   movementSpeedLimit: 10
+  scopedMovementSpeedLimit: 1
   stoppingForce: 10
   diveForce: 10
   ragdollTimerEnd: 3
@@ -3294,6 +3296,7 @@ MonoBehaviour:
   jumpForce: 10
   movementAcceleration: 100
   movementSpeedLimit: 10
+  scopedMovementSpeedLimit: 1
   stoppingForce: 10
   diveForce: 10
   ragdollTimerEnd: 3
@@ -3568,6 +3571,7 @@ MonoBehaviour:
   jumpForce: 10
   movementAcceleration: 100
   movementSpeedLimit: 10
+  scopedMovementSpeedLimit: 1
   stoppingForce: 10
   diveForce: 10
   ragdollTimerEnd: 3
@@ -4433,6 +4437,7 @@ MonoBehaviour:
   jumpForce: 7
   movementAcceleration: 200
   movementSpeedLimit: 5
+  scopedMovementSpeedLimit: 1
   stoppingForce: 200
   diveForce: 10
   ragdollTimerEnd: 3
@@ -5734,6 +5739,7 @@ MonoBehaviour:
   jumpForce: 10
   movementAcceleration: 350
   movementSpeedLimit: 2
+  scopedMovementSpeedLimit: 0.5
   stoppingForce: 350
   diveForce: 300
   ragdollTimerEnd: 3

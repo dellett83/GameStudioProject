@@ -23,6 +23,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public float jumpForce = 10f;
     public float movementAcceleration = 100f;
     public float movementSpeedLimit = 10f;
+    public float scopedMovementSpeedLimit = 1f;
     public float stoppingForce = 10f;
     public float diveForce = 10f;
     public float ragdollTimerEnd = 3f;
@@ -156,18 +157,37 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         // Velocity in only horizontal direction
         Vector3 nonVertVel = new Vector3 (hipsRB.velocity.x, 0f, hipsRB.velocity.z);
 
-        // Speed in only horizontal is faster than speed limit
-        if (nonVertVel.magnitude >= movementSpeedLimit)
+        if (Input.GetMouseButton(1))
         {
-            // Limit speed but not in y
-            float currentYVel = hipsRB.velocity.y;
+            // Speed in only horizontal is faster than speed limit
+            if (nonVertVel.magnitude >= scopedMovementSpeedLimit)
+            {
+                // Limit speed but not in y
+                float currentYVel = hipsRB.velocity.y;
 
-            Vector3 newVelocity = hipsRB.velocity.normalized * movementSpeedLimit;
+                Vector3 newVelocity = hipsRB.velocity.normalized * scopedMovementSpeedLimit;
 
-            newVelocity.y = currentYVel;
+                newVelocity.y = currentYVel;
 
-            hipsRB.velocity = newVelocity;
+                hipsRB.velocity = newVelocity;
+            }
         }
+        else
+        {
+            // Speed in only horizontal is faster than speed limit
+            if (nonVertVel.magnitude >= movementSpeedLimit)
+            {
+                // Limit speed but not in y
+                float currentYVel = hipsRB.velocity.y;
+
+                Vector3 newVelocity = hipsRB.velocity.normalized * movementSpeedLimit;
+
+                newVelocity.y = currentYVel;
+
+                hipsRB.velocity = newVelocity;
+            }
+        }
+        
 
 
         RaycastHit floatPoint = ReturnHighestGround();
