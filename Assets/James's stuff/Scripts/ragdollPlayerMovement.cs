@@ -32,6 +32,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public bool ragdoll = false;
     public float rotationForce = 100f;
 
+    private CinemachineFreeLook vcam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +42,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
             camera = Camera.main;
 
-            var vcam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
+            vcam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
             vcam.Follow = transform;
             vcam.LookAt = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
 
@@ -171,6 +173,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
                 hipsRB.velocity = newVelocity;
             }
+            
         }
         else
         {
