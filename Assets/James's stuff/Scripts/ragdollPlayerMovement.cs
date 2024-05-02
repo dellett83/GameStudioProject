@@ -32,7 +32,9 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public bool ragdoll = false;
     public float rotationForce = 100f;
 
-    private CinemachineFreeLook vcam;
+    private CinemachineFreeLook thirsPersonCam;
+    private CinemachineVirtualCamera firstPersonCam;
+    private CinemachineBrain cinemachineBrain;
 
     // Start is called before the first frame update
     void Start()
@@ -41,16 +43,17 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         //{
 
             camera = Camera.main;
+            cinemachineBrain = camera.GetComponent<CinemachineBrain>();
 
-            vcam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
-            vcam.Follow = transform;
-            vcam.LookAt = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
+            thirsPersonCam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
+            thirsPersonCam.Follow = GameObject.Find("thirdPersonLookAt").transform;
+            thirsPersonCam.LookAt = GameObject.Find("thirdPersonLookAt").transform;
 
-            var vcam2 = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
-            vcam2.Follow = transform;
-            vcam2.LookAt = GameObject.Find("mixamorig6:HeadTop_End").transform; // Change to whatever name of thing you want to look at
-
-        //}
+            firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
+            firstPersonCam.Follow = transform;
+            firstPersonCam.LookAt = GameObject.Find("thirdPersonLookAt").transform; // Change to whatever name of thing you want to look at
+                                                                                    //GameObject.Find("mixamorig6:HeadTop_End").transform;
+                                                                                    //}
     }
 
     void Awake()
@@ -61,10 +64,10 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         //if(!isLocalPlayer)
         //{
-            //return;
+        //return;
         //}
 
         // Limit to how long can be in ragdoll mode
@@ -86,6 +89,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
         // Stop before we do code that allows ragdoll to be controlled
         if (ragdoll) return;
+
 
         // Dive mechanic, launch player forward with left shift
         if (Input.GetKeyDown("left shift"))
