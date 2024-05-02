@@ -34,6 +34,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
     private CinemachineFreeLook thirsPersonCam;
     private CinemachineVirtualCamera firstPersonCam;
+    private bool firstPersonCamBoosted = false;
     private CinemachineBrain cinemachineBrain;
 
     // Start is called before the first frame update
@@ -70,6 +71,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         //return;
         //}
 
+        
+
         // Limit to how long can be in ragdoll mode
         if (ragdollTimerStart) ragdollTimer += Time.deltaTime;
 
@@ -88,8 +91,16 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         }
 
         // Stop before we do code that allows ragdoll to be controlled
-        if (ragdoll) return;
+        if (ragdoll)
+        {
+            if (firstPersonCam.Priority == 19)
+            {
+                firstPersonCam.Priority -= 10;
+                firstPersonCamBoosted = false;
+            }
 
+            return;
+        }
 
         // Dive mechanic, launch player forward with left shift
         if (Input.GetKeyDown("left shift"))
@@ -165,6 +176,12 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
+            if (!firstPersonCamBoosted)
+            {
+                firstPersonCam.Priority += 10;
+                firstPersonCamBoosted = true;
+            }
+
             // Speed in only horizontal is faster than speed limit
             if (nonVertVel.magnitude >= scopedMovementSpeedLimit)
             {
@@ -177,10 +194,14 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
                 hipsRB.velocity = newVelocity;
             }
-            
         }
         else
         {
+            if (firstPersonCamBoosted) 
+            {
+                firstPersonCam.Priority -= 10;
+                firstPersonCamBoosted = false;
+            }
             // Speed in only horizontal is faster than speed limit
             if (nonVertVel.magnitude >= movementSpeedLimit)
             {
