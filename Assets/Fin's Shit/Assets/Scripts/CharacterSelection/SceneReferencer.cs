@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,8 +6,6 @@ namespace Mirror.Examples.CharacterSelection
 {
     public class SceneReferencer : MonoBehaviour
     {
-        // Make sure to attach these Buttons in the Inspector
-        public Button buttonCharacterSelection;
 
         private CharacterData characterData;
         public GameObject characterSelectionObject;
@@ -21,8 +20,6 @@ namespace Mirror.Examples.CharacterSelection
                 Debug.Log("Add CharacterData prefab singleton into the scene.");
                 return;
             }
-
-            buttonCharacterSelection.onClick.AddListener(ButtonCharacterSelection);
         }
 
         public void ButtonCharacterSelection()

@@ -13,7 +13,6 @@ namespace Mirror.Examples.CharacterSelection
         public int[] characterHealths;
         public float[] characterSpeeds;
         public int[] characterAttack;
-        public string[] characterAbilities;
 
         public void Awake()
         {
