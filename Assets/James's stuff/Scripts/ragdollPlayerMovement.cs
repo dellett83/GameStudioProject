@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 {
     public Rigidbody hipsRB;
-    public Camera camera;
+    private Camera camera;
     public Rigidbody headRB;
     public GameObject spine;
 
@@ -43,18 +43,17 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         //if (isLocalPlayer)
         //{
 
-            camera = Camera.main;
-            cinemachineBrain = camera.GetComponent<CinemachineBrain>();
+        camera = Camera.main;
+        cinemachineBrain = camera.GetComponent<CinemachineBrain>();
 
-            thirsPersonCam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
-            thirsPersonCam.Follow = GameObject.Find("thirdPersonLookAt").transform;
-            thirsPersonCam.LookAt = GameObject.Find("thirdPersonLookAt").transform;
+        thirsPersonCam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
+        thirsPersonCam.Follow = GameObject.Find("thirdPersonLookAt").transform;
+        thirsPersonCam.LookAt = GameObject.Find("thirdPersonLookAt").transform;
 
-            firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
-            firstPersonCam.Follow = transform;
-            firstPersonCam.LookAt = GameObject.Find("thirdPersonLookAt").transform; // Change to whatever name of thing you want to look at
-                                                                                    //GameObject.Find("mixamorig6:HeadTop_End").transform;
-                                                                                    //}
+         firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
+         firstPersonCam.Follow = transform;
+         firstPersonCam.LookAt = GameObject.Find("thirdPersonLookAt").transform; // Change to whatever name of thing you want to look at
+                                                                                    
     }
 
     void Awake()
@@ -254,8 +253,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     void CharacterFloat(RaycastHit hit)
     {
         Vector3 vel = hipsRB.velocity;
-        Vector3 rayDir = transform.TransformDirection(-Vector3.up);
-
+        Vector3 rayDir = transform.TransformDirection(1.0f, 0.0f, 0.0f);
+        Debug.Log(rayDir);
         Vector3 otherVel = Vector3.zero;
 
         float rayDirVel = Vector3.Dot(rayDir, vel);
