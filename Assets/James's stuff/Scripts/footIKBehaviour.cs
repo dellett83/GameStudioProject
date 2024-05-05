@@ -7,8 +7,16 @@ public class footIKBehaviour : MonoBehaviour
     public GameObject leftTarget;
     public GameObject rightTarget;
 
+    public GameObject leftLerpFirst;
+    public GameObject rightLerpFirst;
+
+    private bool leftLerpingToFinal = false;
+    private bool rightLerpingToFinal = false;
+
     public GameObject leftUpLeg;
     public GameObject rightUpLeg;
+
+    public GameObject findHighestGround;
 
     public DitzelGames.FastIK.FastIKFabric leftFootIKScript;
     public DitzelGames.FastIK.FastIKFabric rightFootIKScript;
@@ -51,9 +59,6 @@ public class footIKBehaviour : MonoBehaviour
 
             leftFootIKScript.enabled = true;
 
-            leftTarget.transform.position = Vector3.Lerp(leftTarget.transform.position, leftTargetTarget, lerpRate);
-
-
             float distance = (leftTarget.transform.position - highestGroundl.point).magnitude;
 
             if (distance > takeStepDistance)
@@ -64,8 +69,27 @@ public class footIKBehaviour : MonoBehaviour
 
                 Vector3 newPos = (oppositeDirection * takeStepDistance) + highestGroundl.point;
 
-                leftTargetTarget = newPos;
+                findHighestGround.transform.position = newPos + new Vector3(0, 1, 0);
+
+                RaycastHit highestPoint = ReturnHighestPoint(findHighestGround);
+
+                leftTargetTarget = highestPoint.point;
+
+                leftLerpingToFinal = false;
             }
+
+            if (!leftLerpingToFinal)
+            {
+                leftTarget.transform.position = Vector3.Lerp(leftTarget.transform.position, leftLerpFirst.transform.position, lerpRate);
+
+                float distanceToFirst = (leftTarget.transform.position - leftLerpFirst.transform.position).magnitude;
+                if (distanceToFirst < 0.1) leftLerpingToFinal = true;
+            }
+            else
+            {
+                leftTarget.transform.position = Vector3.Lerp(leftTarget.transform.position, leftTargetTarget, lerpRate);
+            }
+            
         }
 
 
@@ -77,9 +101,6 @@ public class footIKBehaviour : MonoBehaviour
 
             rightFootIKScript.enabled = true;
 
-            rightTarget.transform.position = Vector3.Lerp(rightTarget.transform.position, rightTargetTarget, lerpRate);
-
-
             float distance = (rightTarget.transform.position - highestGroundr.point).magnitude;
 
             if (distance > takeStepDistance)
@@ -90,7 +111,25 @@ public class footIKBehaviour : MonoBehaviour
 
                 Vector3 newPos = (oppositeDirection * takeStepDistance) + highestGroundr.point;
 
-                rightTargetTarget = newPos;
+                findHighestGround.transform.position = newPos + new Vector3(0, 1, 0);
+
+                RaycastHit highestPoint = ReturnHighestPoint(findHighestGround);
+
+                rightTargetTarget = highestPoint.point;
+
+                rightLerpingToFinal = false;
+            }
+
+            if (!rightLerpingToFinal)
+            {
+                rightTarget.transform.position = Vector3.Lerp(rightTarget.transform.position, rightLerpFirst.transform.position, lerpRate);
+
+                float distanceToFirst = (rightTarget.transform.position - rightLerpFirst.transform.position).magnitude;
+                if (distanceToFirst < 0.1) rightLerpingToFinal = true;
+            }
+            else
+            {
+                rightTarget.transform.position = Vector3.Lerp(rightTarget.transform.position, rightTargetTarget, lerpRate);
             }
         }
     }
@@ -112,6 +151,26 @@ public class footIKBehaviour : MonoBehaviour
                     highest = hits[i].point.y;
                     floatPoint = hits[i];
                 }
+            }
+        }
+
+        return floatPoint;
+    }
+
+    RaycastHit ReturnHighestPoint(GameObject fromHere)
+    {
+        RaycastHit[] hits;
+        Ray ray = new Ray(fromHere.transform.position, -Vector3.up);
+        hits = Physics.RaycastAll(ray);
+        float highest = -10000f;
+        RaycastHit floatPoint = new RaycastHit();
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].point.y > highest)
+            {
+                highest = hits[i].point.y;
+                floatPoint = hits[i];
             }
         }
 

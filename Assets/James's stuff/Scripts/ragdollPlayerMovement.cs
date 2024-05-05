@@ -10,7 +10,6 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public Rigidbody hipsRB;
     private Camera camera;
     public Rigidbody headRB;
-    public GameObject spine;
 
     // Can make most private just public for initial development
     private bool canJump = true;
@@ -47,12 +46,12 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         cinemachineBrain = camera.GetComponent<CinemachineBrain>();
 
         thirsPersonCam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
-        thirsPersonCam.Follow = GameObject.Find("thirdPersonLookAt").transform;
-        thirsPersonCam.LookAt = GameObject.Find("thirdPersonLookAt").transform;
+        thirsPersonCam.Follow = GameObject.Find("thirdPersonLookAtThis").transform;
+        thirsPersonCam.LookAt = GameObject.Find("thirdPersonLookAtThis").transform;
 
-         firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
-         firstPersonCam.Follow = transform;
-         firstPersonCam.LookAt = GameObject.Find("thirdPersonLookAt").transform; // Change to whatever name of thing you want to look at
+        firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
+        firstPersonCam.Follow = GameObject.Find("thirdPersonLookAtThis").transform;
+        firstPersonCam.LookAt = GameObject.Find("thirdPersonLookAtThis").transform; // Change to whatever name of thing you want to look at
                                                                                     
     }
 
@@ -126,7 +125,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         }
 
         // Always face direciton of camera
-        float rotationDifference = camera.transform.eulerAngles.y - transform.eulerAngles.y;
+        float rotationDifference = (camera.transform.eulerAngles.y - transform.eulerAngles.y) - 90.0f;
 
         // Forgot why you need to do this
         if (rotationDifference > 180f)
@@ -138,8 +137,9 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             rotationDifference += 360f;
         }
 
-        float torqueStrength = rotationDifference * rotationForce;
-        hipsRB.AddTorque(Vector3.up * torqueStrength * Time.deltaTime);
+        float torqueStrength = (rotationDifference) * rotationForce;
+        hipsRB.AddTorque(new Vector3(0.0f, 1.0f, 0.0f) * torqueStrength * Time.deltaTime);
+
 
         // Calculate correct movement direciton based on camera angle and player input
         float verticalInput = Input.GetAxis("Vertical");
@@ -244,17 +244,14 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         }
 
         Quaternion currentRot = transform.rotation;
-        transform.rotation = Quaternion.Euler(0, currentRot.eulerAngles.y, 0);
-
-        Quaternion currentRot3 = spine.transform.rotation;
-        //spine.transform.rotation = Quaternion.Euler(0, currentRot3.eulerAngles.y, 0);
+        //transform.rotation = Quaternion.Euler(0, currentRot.eulerAngles.y, -90.0f);
     }
 
     void CharacterFloat(RaycastHit hit)
     {
         Vector3 vel = hipsRB.velocity;
-        Vector3 rayDir = transform.TransformDirection(1.0f, 0.0f, 0.0f);
-        Debug.Log(rayDir);
+        //Vector3 rayDir = transform.TransformDirection(-Vector3.up);
+        Vector3 rayDir = -Vector3.up;
         Vector3 otherVel = Vector3.zero;
 
         float rayDirVel = Vector3.Dot(rayDir, vel);

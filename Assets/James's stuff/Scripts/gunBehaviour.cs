@@ -24,7 +24,6 @@ public class gunBehaviour : MonoBehaviour
     public GameObject hips;
     public GameObject rightHand;
 
-    public float handHoldForce = 100f;
 
     public float maxAmmo;
     private float currentAmmo;
@@ -40,6 +39,8 @@ public class gunBehaviour : MonoBehaviour
 
     private Vector3[] aimPoints = new Vector3[4];
     private bool empty = true;
+
+    private Quaternion startingRotation;
 
 
     // Start is called before the first frame update
@@ -57,6 +58,8 @@ public class gunBehaviour : MonoBehaviour
         rightHandIKScript.enabled = true;
 
         currentAmmo = maxAmmo;
+
+        startingRotation = transform.rotation;
     }
 
     void FixedUpdate()
@@ -142,7 +145,7 @@ public class gunBehaviour : MonoBehaviour
             else
             {
                 // Make gun aim vertically based on camera horizontal rotation
-                transform.localRotation = Quaternion.Euler(camera.transform.eulerAngles.x, 0, 0);
+                transform.localRotation = Quaternion.Euler(camera.transform.eulerAngles.x - 90, hips.transform.rotation.y + 90, hips.transform.rotation.z);
             }
         }
         else
