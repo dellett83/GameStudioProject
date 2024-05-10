@@ -42,6 +42,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         //if (isLocalPlayer)
         //{
 
+        //if (isLocalPlayer)
+        //{
         camera = Camera.main;
         cinemachineBrain = camera.GetComponent<CinemachineBrain>();
 
@@ -52,6 +54,9 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
         firstPersonCam.Follow = GameObject.Find("thirdPersonLookAtThis").transform;
         firstPersonCam.LookAt = GameObject.Find("thirdPersonLookAtThis").transform; // Change to whatever name of thing you want to look at
+        //}
+
+
                                                                                     
     }
 
@@ -63,13 +68,13 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        //if(!isLocalPlayer)
+
+        //if (!isLocalPlayer)
         //{
-        //return;
+        //    return;
         //}
 
-        
+
 
         // Limit to how long can be in ragdoll mode
         if (ragdollTimerStart) ragdollTimer += Time.deltaTime;
