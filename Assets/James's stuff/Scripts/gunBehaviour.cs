@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gunBehaviour : MonoBehaviour
+public class gunBehaviour : NetworkBehaviour
 {
     public DitzelGames.FastIK.FastIKFabric leftHandIKScript;
     public DitzelGames.FastIK.FastIKFabric rightHandIKScript;
@@ -51,6 +52,9 @@ public class gunBehaviour : MonoBehaviour
 
     void Awake()
     {
+
+        //if (isLocalPlayer)
+        //{
         camera = Camera.main;
         crosshair = GameObject.Find("Crosshair");
 
@@ -60,6 +64,7 @@ public class gunBehaviour : MonoBehaviour
         currentAmmo = maxAmmo;
 
         startingRotation = transform.rotation;
+        //}
     }
 
     void FixedUpdate()
@@ -109,6 +114,11 @@ public class gunBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (!isLocalPlayer)
+        //{
+        //    return;
+        //}
+
         if (isRagdoll != playerMovementScript.ragdoll) // Update our ragdoll state if it's not the same as the players
         {
             isRagdollChanged = true;

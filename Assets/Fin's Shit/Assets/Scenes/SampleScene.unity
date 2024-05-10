@@ -365,9 +365,9 @@ MonoBehaviour:
   autoCreatePlayer: 0
   playerSpawnMethod: 1
   spawnPrefabs:
-  - {fileID: 5917217009262522283, guid: 70699244ee3bd2c44a56a4fb44e86035, type: 3}
-  - {fileID: 5917217009262522283, guid: 892d689aea7f94441abc28716692c3d5, type: 3}
-  - {fileID: 5917217009262522283, guid: 1ca9b71d9efba514bb91cbf24f6db680, type: 3}
+  - {fileID: 5711315984901362530, guid: 8442d81ff4f9b044d9d1b3dd9c2ee701, type: 3}
+  - {fileID: 5711315984901362530, guid: ef8f3d2f803d8f44386b2fc8bb648a52, type: 3}
+  - {fileID: 5711315984901362530, guid: f1cff4dadb7bb6b478e0ad1bce1511d6, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -1487,6 +1487,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2198569300118446343, guid: ecd32addaebbe41409acdd8f8d680732, type: 3}
+      propertyPath: characterPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 5711315984901362530, guid: 8442d81ff4f9b044d9d1b3dd9c2ee701, type: 3}
+    - target: {fileID: 2198569300118446343, guid: ecd32addaebbe41409acdd8f8d680732, type: 3}
+      propertyPath: characterPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 5711315984901362530, guid: ef8f3d2f803d8f44386b2fc8bb648a52, type: 3}
+    - target: {fileID: 2198569300118446343, guid: ecd32addaebbe41409acdd8f8d680732, type: 3}
+      propertyPath: characterPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 5711315984901362530, guid: f1cff4dadb7bb6b478e0ad1bce1511d6, type: 3}
     - target: {fileID: 5101978324574718251, guid: ecd32addaebbe41409acdd8f8d680732, type: 3}
       propertyPath: m_RootOrder
       value: 9

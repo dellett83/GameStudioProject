@@ -57,7 +57,7 @@ namespace Mirror.Examples.CharacterSelection
                 {
                     createCharacterMessage = _characterMessage
                 };
-                NetworkManagerCharacterSelection.singleton.ReplaceCharacter(replaceCharacterMessage);
+                //NetworkManagerCharacterSelection.singleton.ReplaceCharacter(replaceCharacterMessage);
                 sceneReferencer.CloseCharacterSelection();
             }
             else
