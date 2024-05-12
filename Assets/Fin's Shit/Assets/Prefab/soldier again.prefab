@@ -119,6 +119,7 @@ MonoBehaviour:
   ragdollTimerEnd: 3
   ragdoll: 0
   rotationForce: 1e+9
+  cameraLookAt: {fileID: 1058875203427899757}
 --- !u!114 &8662890255216604152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2020,7 +2021,7 @@ Transform:
   - {fileID: 1067984713886096437}
   - {fileID: 1318464279899763089}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6398704458535143014
 Animator:
@@ -2649,6 +2650,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351a8785e980b924fa8b22d929f56397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   leftHandIKScript: {fileID: 6444593698323877856}
   rightHandIKScript: {fileID: 6149544545476239616}
   playerMovementScript: {fileID: 472632335665140137}

@@ -31,10 +31,11 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public bool ragdoll = false;
     public float rotationForce = 100f;
 
+    public Transform cameraLookAt;
+
     private CinemachineFreeLook thirsPersonCam;
     private CinemachineVirtualCamera firstPersonCam;
     private bool firstPersonCamBoosted = false;
-    private CinemachineBrain cinemachineBrain;
 
     // Start is called before the first frame update
     void Start()
@@ -45,24 +46,25 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         //if (isLocalPlayer)
         //{
         camera = Camera.main;
-        cinemachineBrain = camera.GetComponent<CinemachineBrain>();
 
         thirsPersonCam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
-        thirsPersonCam.Follow = GameObject.Find("thirdPersonLookAtThis").transform;
-        thirsPersonCam.LookAt = GameObject.Find("thirdPersonLookAtThis").transform;
 
         firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
-        firstPersonCam.Follow = GameObject.Find("thirdPersonLookAtThis").transform;
-        firstPersonCam.LookAt = GameObject.Find("thirdPersonLookAtThis").transform; // Change to whatever name of thing you want to look at
-        //}
-
-
-                                                                                    
     }
 
     void Awake()
     {
+        
+    }
 
+    void OnDestroy()
+    {
+        // "Reset" camera follows/lookAts
+        thirsPersonCam.Follow = null;
+        thirsPersonCam.LookAt = null;
+
+        firstPersonCam.Follow = null;
+        firstPersonCam.LookAt = null;
     }
 
     // Update is called once per frame
@@ -74,6 +76,15 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         //    return;
         //}
 
+        // Make camera follow me if it's not follolwing anything (scuffed)
+        if (thirsPersonCam.Follow == null)
+        {
+            thirsPersonCam.Follow = cameraLookAt;
+            thirsPersonCam.LookAt = cameraLookAt;
+
+            firstPersonCam.Follow = cameraLookAt;
+            firstPersonCam.LookAt = cameraLookAt;
+        }
 
 
         // Limit to how long can be in ragdoll mode

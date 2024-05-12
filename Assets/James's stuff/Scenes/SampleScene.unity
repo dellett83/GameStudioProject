@@ -2200,6 +2200,7 @@ MonoBehaviour:
   ragdollTimerEnd: 3
   ragdoll: 0
   rotationForce: 100
+  cameraLookAt: {fileID: 0}
 --- !u!1 &805047688
 GameObject:
   m_ObjectHideFlags: 0
@@ -3283,6 +3284,7 @@ MonoBehaviour:
   ragdollTimerEnd: 3
   ragdoll: 0
   rotationForce: 100
+  cameraLookAt: {fileID: 0}
 --- !u!1 &1330720690 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3158317724555503511, guid: c73f11c7efd75c44ba020cdfddad630e, type: 3}
@@ -3604,6 +3606,7 @@ MonoBehaviour:
   ragdollTimerEnd: 3
   ragdoll: 0
   rotationForce: 100
+  cameraLookAt: {fileID: 0}
 --- !u!54 &1478396216
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3877,6 +3880,7 @@ MonoBehaviour:
   ragdollTimerEnd: 3
   ragdoll: 0
   rotationForce: 100
+  cameraLookAt: {fileID: 0}
 --- !u!54 &1574047105
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3976,6 +3980,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351a8785e980b924fa8b22d929f56397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   leftHandIKScript: {fileID: 3553103597209085969}
   rightHandIKScript: {fileID: 1799484115689217652}
   playerMovementScript: {fileID: 5135850475305412911}
@@ -4938,6 +4945,7 @@ MonoBehaviour:
   ragdollTimerEnd: 3
   ragdoll: 0
   rotationForce: 100
+  cameraLookAt: {fileID: 0}
 --- !u!1 &2105501714
 GameObject:
   m_ObjectHideFlags: 0
@@ -6560,6 +6568,7 @@ MonoBehaviour:
   ragdollTimerEnd: 3
   ragdoll: 0
   rotationForce: 1e+9
+  cameraLookAt: {fileID: 0}
 --- !u!1 &2003701088960860822
 GameObject:
   m_ObjectHideFlags: 0
@@ -8628,7 +8637,7 @@ MonoBehaviour:
   syncInterval: 0
   hipsRB: {fileID: 5135850475305412909}
   headRB: {fileID: 5958282564768594456}
-  headFloatingForce: 2000
+  headFloatingForce: 3000
   floatingHeight: 0.55
   floatingForce: 15000
   floatForceDampener: 350
@@ -8641,6 +8650,7 @@ MonoBehaviour:
   ragdollTimerEnd: 3
   ragdoll: 0
   rotationForce: 1e+9
+  cameraLookAt: {fileID: 1127583254}
 --- !u!114 &5135850475305412912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10236,6 +10246,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351a8785e980b924fa8b22d929f56397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   leftHandIKScript: {fileID: 9015042231930724121}
   rightHandIKScript: {fileID: 6876462989298765074}
   playerMovementScript: {fileID: 1967249375534962810}
