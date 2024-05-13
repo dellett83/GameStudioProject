@@ -52,7 +52,6 @@ public class gunBehaviour : NetworkBehaviour
 
     void Awake()
     {
-
         //if (isLocalPlayer)
         //{
         camera = Camera.main;

@@ -19,10 +19,10 @@ public class bulletBehaviour : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
+        //if (!isLocalPlayer)
+        //{
+        //    return;
+        //}
 
         // Current bullt drop accumulates over time by adding onto itself every frame (don't know if this is best way to do it)
         currentBulletDrop += (bulletDrop * Time.deltaTime);
