@@ -92,7 +92,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _Waveheight: 0.04
+    - _Waveheight: 0.03
     - _Wavespread: 5
     - _ZWrite: 1
     - _isInnerAlphaBlendOrColor: 0
