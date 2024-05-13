@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class footIKBehaviour : MonoBehaviour
+public class footIKBehaviour : NetworkBehaviour
 {
     public GameObject leftTarget;
     public GameObject rightTarget;
@@ -41,6 +42,13 @@ public class footIKBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        //if (!isLocalPlayer)
+        //{
+        //    return;
+        //}
+
+
         leftFootIKScript.enabled = false;
         rightFootIKScript.enabled = false;
 

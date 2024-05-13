@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bulletBehaviour : MonoBehaviour
+public class bulletBehaviour : NetworkBehaviour
 {
     public float bulletSpeed;
     public float bulletDrop;
@@ -18,6 +19,11 @@ public class bulletBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (!isLocalPlayer)
+        //{
+        //    return;
+        //}
+
         // Current bullt drop accumulates over time by adding onto itself every frame (don't know if this is best way to do it)
         currentBulletDrop += (bulletDrop * Time.deltaTime);
 
