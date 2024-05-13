@@ -48,7 +48,6 @@ public class footIKBehaviour : NetworkBehaviour
             return;
         }
 
-
         leftFootIKScript.enabled = false;
         rightFootIKScript.enabled = false;
 

@@ -68,6 +68,12 @@ public class gunBehaviour : NetworkBehaviour
 
     void FixedUpdate()
     {
+
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         // In FixedUpdate to slow down how often it changes position to make it smoother.
         // Also code so ugly it doesn't deserve to run more than 50 times a second.
 
