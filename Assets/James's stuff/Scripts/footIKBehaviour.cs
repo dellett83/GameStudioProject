@@ -43,10 +43,10 @@ public class footIKBehaviour : NetworkBehaviour
     void FixedUpdate()
     {
 
-        //if (!isLocalPlayer)
-        //{
-        //    return;
-        //}
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 
 
         leftFootIKScript.enabled = false;
