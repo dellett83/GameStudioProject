@@ -52,7 +52,6 @@ public class gunBehaviour : NetworkBehaviour
 
     void Awake()
     {
-
         //if (isLocalPlayer)
         //{
         camera = Camera.main;
@@ -69,6 +68,12 @@ public class gunBehaviour : NetworkBehaviour
 
     void FixedUpdate()
     {
+
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         // In FixedUpdate to slow down how often it changes position to make it smoother.
         // Also code so ugly it doesn't deserve to run more than 50 times a second.
 
@@ -114,10 +119,16 @@ public class gunBehaviour : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (!isLocalPlayer)
+        //if (isServer && !fireing && !isRagdoll && !reloading && currentAmmo > 0 && Input.GetMouseButton(0))
         //{
-        //    return;
+        //    GameObject spawnBullet = Instantiate(NetworkManager.singleton.spawnPrefabs[0], shootFromHere.transform.position, transform.rotation);
+        //    NetworkServer.Spawn(spawnBullet);
         //}
+
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 
         if (isRagdoll != playerMovementScript.ragdoll) // Update our ragdoll state if it's not the same as the players
         {
@@ -199,7 +210,8 @@ public class gunBehaviour : NetworkBehaviour
         {
             currentAmmo--;
             // Creates a bullet pointing in the correct direciton
-            Instantiate(bullet, shootFromHere.transform.position, transform.rotation);
+            //GameObject spawnBullet = Instantiate(bullet, shootFromHere.transform.position, transform.rotation);
+            ShootBullet(shootFromHere.transform.position, transform.rotation);
             playerMovementScript.GunRecoil(playerRecoil);
             fireing = true;
         }
@@ -209,5 +221,18 @@ public class gunBehaviour : NetworkBehaviour
         {
             reloading = true;
         }
+    }
+
+    [Command]
+    void ShootBullet(Vector3 position, Quaternion rotation)
+    {
+        if (!NetworkServer.active)
+        {
+            Debug.LogError("Server not active. Cannot spawn bullet.");
+            //return;
+        }
+
+        GameObject spawnBullet = Instantiate(NetworkManager.singleton.spawnPrefabs[0], position, rotation);
+        NetworkServer.Spawn(spawnBullet);
     }
 }

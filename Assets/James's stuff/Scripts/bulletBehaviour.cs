@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bulletBehaviour : MonoBehaviour
+public class bulletBehaviour : NetworkBehaviour
 {
     public float bulletSpeed;
     public float bulletDrop;

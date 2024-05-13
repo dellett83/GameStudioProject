@@ -40,16 +40,14 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //if (isLocalPlayer)
-        //{
+        if (isLocalPlayer)
+        {
+            camera = Camera.main;
 
-        //if (isLocalPlayer)
-        //{
-        camera = Camera.main;
+            thirsPersonCam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
 
-        thirsPersonCam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
-
-        firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
+            firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
+        }
     }
 
     void Awake()
@@ -59,22 +57,26 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
     void OnDestroy()
     {
-        // "Reset" camera follows/lookAts
-        thirsPersonCam.Follow = null;
-        thirsPersonCam.LookAt = null;
+        if (isLocalPlayer)
+        {
+            // "Reset" camera follows/lookAts
+            thirsPersonCam.Follow = null;
+            thirsPersonCam.LookAt = null;
 
-        firstPersonCam.Follow = null;
-        firstPersonCam.LookAt = null;
+            firstPersonCam.Follow = null;
+            firstPersonCam.LookAt = null;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        //if (!isLocalPlayer)
-        //{
-        //    return;
-        //}
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 
         // Make camera follow me if it's not follolwing anything (scuffed)
         if (thirsPersonCam.Follow == null)
@@ -304,13 +306,6 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
     public void GunRecoil(float recoilForce)
     {
-
-        //if (!isLocalPlayer)
-        //{
-            //return;
-        //}
-
-
         hipsRB.AddForce(-hipsRB.transform.forward * recoilForce, ForceMode.Impulse);
     }
 }
