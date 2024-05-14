@@ -47,6 +47,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             thirsPersonCam = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
 
             firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
+
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
@@ -72,7 +74,6 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (!isLocalPlayer)
         {
             return;

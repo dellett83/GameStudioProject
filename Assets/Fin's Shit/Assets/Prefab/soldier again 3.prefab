@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 4513703070047408557}
   - component: {fileID: 456473940233171158}
   - component: {fileID: -6205541633559306697}
+  - component: {fileID: -502416393393332805}
   m_Layer: 0
   m_Name: soldier again 3
   m_TagString: Player
@@ -284,6 +285,19 @@ MonoBehaviour:
   showRoomGUI: 1
   readyToBegin: 0
   index: 0
+--- !u!114 &-502416393393332805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856653514851071445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df85493150275c741b0dd3b47dd2206b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamID: 0
 --- !u!1 &997222013020053426
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,16 +455,16 @@ MonoBehaviour:
   syncInterval: 0
   hipsRB: {fileID: 5170654975288382621}
   headRB: {fileID: 6133564078141139619}
-  headFloatingForce: 3000
+  headFloatingForce: 2500
   floatingHeight: 0.55
   floatingForce: 15000
   floatForceDampener: 350
-  jumpForce: 8
+  jumpForce: 4
   movementAcceleration: 200
   movementSpeedLimit: 2
   scopedMovementSpeedLimit: 0.5
   stoppingForce: 200
-  diveForce: 300
+  diveForce: 30
   ragdollTimerEnd: 3
   ragdoll: 0
   rotationForce: 1e+9
@@ -531,9 +545,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb57709882fd62148812dfa191139738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  healthRegenTime: 0
-  healthRegenRate: 0
+  teamScript: {fileID: -502416393393332805}
+  maxHealth: 100
+  healthRegenTime: 4
+  healthRegenRate: 0.1
+  health: 100
 --- !u!1 &1402262226638558142
 GameObject:
   m_ObjectHideFlags: 0
@@ -3758,6 +3774,6 @@ MonoBehaviour:
   hips: {fileID: 1352257051476424257}
   rightHand: {fileID: 3107675154192725051}
   maxAmmo: 30
-  fireRate: 0.1
+  fireRate: 0.25
   reloadTime: 1
   playerRecoil: 0

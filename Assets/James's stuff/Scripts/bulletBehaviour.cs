@@ -8,8 +8,10 @@ public class bulletBehaviour : NetworkBehaviour
     public float bulletSpeed;
     public float bulletDrop;
     public float knockbackForce;
-    public int damage;
+    public float dropOffAfter;
     private float currentBulletDrop = 0;
+
+    private float dropOffTimer = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -20,13 +22,15 @@ public class bulletBehaviour : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        dropOffTimer += Time.deltaTime;
         // Current bullt drop accumulates over time by adding onto itself every frame (don't know if this is best way to do it)
         currentBulletDrop += (bulletDrop * Time.deltaTime);
 
         // Bullet will be instanciated in correct facing direciton so we just move it forward
         transform.Translate(Vector3.forward * bulletSpeed * Time.deltaTime, Space.Self);
         // Bullet moves down according to world space
-        transform.Translate(-Vector3.up * currentBulletDrop * Time.deltaTime, Space.World);
+        if(dropOffTimer > dropOffAfter) transform.Translate(-Vector3.up * currentBulletDrop * Time.deltaTime, Space.World);
+
     }
 
     // Bullet destroys when it hits something
@@ -35,6 +39,11 @@ public class bulletBehaviour : NetworkBehaviour
         if(col.gameObject.tag == "Player")
         {
             GameObject seeIfWorks = col.transform.gameObject;
+
+            int _damage = Random.Range(8, 11);
+
+            if (seeIfWorks.name == "QuickRigCharacter_Head") _damage = 15;
+
             PlayerHealth playerHealth = seeIfWorks.GetComponent<PlayerHealth>();
             bool found = false;
 
@@ -47,9 +56,8 @@ public class bulletBehaviour : NetworkBehaviour
                 }
                 else
                 {
-                    playerHealth.DamagePlayer(damage);
+                    playerHealth.DamagePlayer(_damage);
                     found = true;
-                    Debug.Log("damaged player - " + damage);
                 }
             }
 

@@ -122,9 +122,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   bulletSpeed: 10
-  bulletDrop: 0
+  bulletDrop: 1
   knockbackForce: 20
-  damage: 5
+  damage: 9
+  dropOffAfter: 0.5
 --- !u!135 &5823370809420917617
 SphereCollider:
   m_ObjectHideFlags: 0

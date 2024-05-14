@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public Team teamScript;
+
     public int maxHealth;
     public float healthRegenTime;
     public float healthRegenRate;
-    private float health;
+    public float health;
 
     private float regenTimer = 0;
 
@@ -36,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0)
         {
             health = 0;
-            //GameManager.Instance.PlayerDie(); // Or something idk
+            GameManager.Instance.PlayerDie(teamScript.teamID); // Maybe use [command]?
         }
     }
 
