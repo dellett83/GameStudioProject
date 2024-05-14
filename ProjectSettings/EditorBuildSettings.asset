@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Fin's Shit/Assets/Scenes/Offline.unity
+    path: Assets/Fin's Shit/Assets/Scenes/Offline_safe.unity
     guid: 7cec4c3f05b72424287717ef3b93e53a
   - enabled: 1
     path: Assets/Fin's Shit/Assets/Scenes/Room.unity
     guid: eb406681874944a4d95bee09adf0e9de
   - enabled: 1
+    path: Assets/Fin's Shit/Assets/Scenes/The Map.unity
+    guid: 9f3e5b1c4fb7b90498b6bab371387c74
+  - enabled: 0
     path: Assets/Fin's Shit/Assets/Scenes/SampleScene.unity
     guid: aa045e56f4ff949c3bcd7e4d80232d7d
+  - enabled: 0
+    path: Assets/Fin's Shit/Assets/Scenes/Offline.unity
+    guid: 565a9cdfd2ef4a242888d4800d432c58
   m_configObjects: {}
