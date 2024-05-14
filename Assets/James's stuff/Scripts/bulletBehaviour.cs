@@ -33,6 +33,8 @@ public class bulletBehaviour : NetworkBehaviour
     {
         if(col.gameObject.tag == "Player")
         {
+
+
             // Apply knockback force if hit a player
             Rigidbody rb = col.gameObject.GetComponent<Rigidbody>();
             if(rb != null) rb.AddForce(transform.forward * knockbackForce, ForceMode.Impulse);
