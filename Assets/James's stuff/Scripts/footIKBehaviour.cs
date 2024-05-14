@@ -33,6 +33,10 @@ public class footIKBehaviour : NetworkBehaviour
     private Vector3 leftTargetTarget;
     private Vector3 rightTargetTarget;
 
+    // For audio
+    private bool playLeftSound = false;
+    private bool playRightSound = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -83,6 +87,8 @@ public class footIKBehaviour : NetworkBehaviour
                 leftTargetTarget = highestPoint.point;
 
                 leftLerpingToFinal = false;
+
+                playLeftSound = true;
             }
 
             if (!leftLerpingToFinal)
@@ -95,6 +101,19 @@ public class footIKBehaviour : NetworkBehaviour
             else
             {
                 leftTarget.transform.position = Vector3.Lerp(leftTarget.transform.position, leftTargetTarget, lerpRate);
+
+                float distanceToTargetTarget = (leftTarget.transform.position - leftTargetTarget).magnitude;
+                if (distanceToTargetTarget < 0.1)
+                {
+                    // Foot is on ground (i think)
+
+                    if (playLeftSound)
+                    {
+                        // Code to play footstep sound
+
+                        playLeftSound = false;
+                    }
+                }
             }
             
         }
@@ -125,6 +144,8 @@ public class footIKBehaviour : NetworkBehaviour
                 rightTargetTarget = highestPoint.point;
 
                 rightLerpingToFinal = false;
+
+                playRightSound = true;
             }
 
             if (!rightLerpingToFinal)
@@ -137,6 +158,19 @@ public class footIKBehaviour : NetworkBehaviour
             else
             {
                 rightTarget.transform.position = Vector3.Lerp(rightTarget.transform.position, rightTargetTarget, lerpRate);
+
+                float distanceToTargetTarget = (rightTarget.transform.position - rightTargetTarget).magnitude;
+                if (distanceToTargetTarget < 0.1)
+                {
+                    // Foot is on ground (i think)
+
+                    if (playRightSound)
+                    {
+                        // Code to play footstep sound
+
+                        playRightSound = false;
+                    }
+                }
             }
         }
     }

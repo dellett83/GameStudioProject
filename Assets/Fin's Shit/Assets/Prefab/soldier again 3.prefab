@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 9094184303110951204}
   - component: {fileID: 9203422312292136917}
   - component: {fileID: 505928142344320208}
+  - component: {fileID: 8216622172733038814}
   m_Layer: 0
   m_Name: QuickRigCharacter_Hips
   m_TagString: Player
@@ -518,6 +519,21 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
+--- !u!114 &8216622172733038814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352257051476424257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb57709882fd62148812dfa191139738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  healthRegenTime: 0
+  healthRegenRate: 0
 --- !u!1 &1402262226638558142
 GameObject:
   m_ObjectHideFlags: 0

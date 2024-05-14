@@ -124,6 +124,7 @@ MonoBehaviour:
   bulletSpeed: 10
   bulletDrop: 0
   knockbackForce: 20
+  damage: 5
 --- !u!135 &5823370809420917617
 SphereCollider:
   m_ObjectHideFlags: 0

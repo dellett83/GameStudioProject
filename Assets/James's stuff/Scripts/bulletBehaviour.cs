@@ -8,6 +8,7 @@ public class bulletBehaviour : NetworkBehaviour
     public float bulletSpeed;
     public float bulletDrop;
     public float knockbackForce;
+    public int damage;
     private float currentBulletDrop = 0;
 
     // Start is called before the first frame update
@@ -33,7 +34,24 @@ public class bulletBehaviour : NetworkBehaviour
     {
         if(col.gameObject.tag == "Player")
         {
+            GameObject seeIfWorks = col.transform.gameObject;
+            PlayerHealth playerHealth = seeIfWorks.GetComponent<PlayerHealth>();
+            bool found = false;
 
+            while (!found)
+            {
+                if(playerHealth == null)
+                {
+                    seeIfWorks = seeIfWorks.transform.parent.gameObject;
+                    playerHealth = seeIfWorks.GetComponent<PlayerHealth>();
+                }
+                else
+                {
+                    playerHealth.DamagePlayer(damage);
+                    found = true;
+                    Debug.Log("damaged player - " + damage);
+                }
+            }
 
             // Apply knockback force if hit a player
             Rigidbody rb = col.gameObject.GetComponent<Rigidbody>();
