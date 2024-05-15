@@ -11,6 +11,8 @@ public class bulletBehaviour : NetworkBehaviour
     public float dropOffAfter;
     private float currentBulletDrop = 0;
 
+    public int teamID = 0;
+
     private float dropOffTimer = 0;
 
     // Start is called before the first frame update
@@ -56,7 +58,7 @@ public class bulletBehaviour : NetworkBehaviour
                 }
                 else
                 {
-                    playerHealth.DamagePlayer(_damage);
+                    playerHealth.DamagePlayer(_damage, teamID);
                     found = true;
                 }
             }

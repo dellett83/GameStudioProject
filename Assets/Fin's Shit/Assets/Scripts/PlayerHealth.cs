@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public Team teamScript;
+    public ragdollPlayerMovement ragdollScript;
 
     public int maxHealth;
     public float healthRegenTime;
@@ -38,12 +39,22 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0)
         {
             health = 0;
+            ragdollScript.dead = true;
             GameManager.Instance.PlayerDie(teamScript.teamID); // Maybe use [command]?
         }
     }
 
-    public void DamagePlayer(int _damage)
+    public void DamagePlayer(int _damage, int _bulletsTeam)
     {
+        // If I'm not on team I don't get damaged
+        if (teamScript.teamID == 0) return;
+
+        // If bullet belongs to someone not on a team, I don't get damaged
+        if (_bulletsTeam == 0) return;
+
+        // If me and bullet are on same team, I don't get damaged
+        if (_bulletsTeam == teamScript.teamID) return;
+
         health -= _damage;
 
         regenTimer = 0;

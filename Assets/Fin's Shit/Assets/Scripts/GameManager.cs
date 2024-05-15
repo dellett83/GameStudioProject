@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance;
 
@@ -28,12 +29,15 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (!isServer) return;
         Instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isServer) return;
+
         if (startBlueRespawnTimer) blueRespawnTimer += Time.deltaTime;
         if (blueRespawnTimer > respawnTime)
         {
@@ -57,10 +61,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PlayerDie(int teamID)
+    public void PlayerDie(int teamID) // 1 is blue team, 2 is red team
     {
         // Do stuff, update score, start correct timer to respawn player
         Debug.Log(teamID);
+
+        if (teamID == 1)
+        {
+            startBlueRespawnTimer = true;
+            redScore++;
+            // Update UI
+        }
+        else if (teamID == 2)
+        {
+            startRedRespawnTimer = true;
+            blueScore++;
+            // Update UI
+        }
+        else
+        {
+            Debug.Log("Player died not on a team");
+        }
     }
 
     void BlueWins()

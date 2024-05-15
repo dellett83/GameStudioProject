@@ -9,6 +9,7 @@ public class gunBehaviour : NetworkBehaviour
     public DitzelGames.FastIK.FastIKFabric rightHandIKScript;
 
     public ragdollPlayerMovement playerMovementScript;
+    public Team teamScript;
     private bool isRagdoll = false;
     private bool isRagdollChanged = false;
 
@@ -233,6 +234,8 @@ public class gunBehaviour : NetworkBehaviour
         }
 
         GameObject spawnBullet = Instantiate(NetworkManager.singleton.spawnPrefabs[0], position, rotation);
+        bulletBehaviour bulletsTeamScript = spawnBullet.GetComponent<bulletBehaviour>();
+        bulletsTeamScript.teamID = teamScript.teamID;
         NetworkServer.Spawn(spawnBullet);
     }
 }

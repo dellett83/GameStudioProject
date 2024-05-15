@@ -31,6 +31,10 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public bool ragdoll = false;
     public float rotationForce = 100f;
 
+    public bool dead = false;
+    public float despawnAfter;
+    private float despawnTimer = 0;
+
     public Transform cameraLookAt;
 
     private CinemachineFreeLook thirsPersonCam;
@@ -89,6 +93,13 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             firstPersonCam.LookAt = cameraLookAt;
         }
 
+        if (dead)
+        {
+            despawnTimer += Time.deltaTime;
+            if (despawnTimer > despawnAfter) Destroy(gameObject);
+            ragdoll = true;
+            return;
+        }
 
         // Limit to how long can be in ragdoll mode
         if (ragdollTimerStart) ragdollTimer += Time.deltaTime;

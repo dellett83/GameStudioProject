@@ -297,6 +297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df85493150275c741b0dd3b47dd2206b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   teamID: 0
 --- !u!1 &997222013020053426
 GameObject:
@@ -468,6 +471,7 @@ MonoBehaviour:
   ragdollTimerEnd: 3
   ragdoll: 0
   rotationForce: 1e+9
+  dead: 0
   cameraLookAt: {fileID: 3729468817498958832}
 --- !u!114 &9203422312292136917
 MonoBehaviour:
@@ -546,6 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamScript: {fileID: -502416393393332805}
+  ragdollScript: {fileID: 9094184303110951204}
   maxHealth: 100
   healthRegenTime: 4
   healthRegenRate: 0.1
@@ -3766,6 +3771,7 @@ MonoBehaviour:
   leftHandIKScript: {fileID: 6362124894744148423}
   rightHandIKScript: {fileID: 6308237748616445914}
   playerMovementScript: {fileID: 9094184303110951204}
+  teamScript: {fileID: -502416393393332805}
   bullet: {fileID: 900563049876251726, guid: fa12614c3444ccf4199ae830c00602cc, type: 3}
   shootFromHere: {fileID: 1812507796345271595}
   leftHold: {fileID: 4800774462733722757}
