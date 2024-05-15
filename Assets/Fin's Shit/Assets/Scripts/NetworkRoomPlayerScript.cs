@@ -139,7 +139,8 @@ public override void OnClientExitRoom()
             {
                 uiManager.UpdateStatus("You have exited the room.");
             }
-            uiInstance.SetActive(false);
+            //uiInstance.SetActive(false);
+            Destroy(uiInstance);
         }
 
     }
