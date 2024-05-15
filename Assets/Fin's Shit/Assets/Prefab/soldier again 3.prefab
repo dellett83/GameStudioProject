@@ -3766,7 +3766,7 @@ MonoBehaviour:
   leftHandIKScript: {fileID: 6362124894744148423}
   rightHandIKScript: {fileID: 6308237748616445914}
   playerMovementScript: {fileID: 9094184303110951204}
-  bullet: {fileID: 4166898577121245075, guid: ff03ef5062d5e86449d9547253de135e, type: 3}
+  bullet: {fileID: 900563049876251726, guid: fa12614c3444ccf4199ae830c00602cc, type: 3}
   shootFromHere: {fileID: 1812507796345271595}
   leftHold: {fileID: 4800774462733722757}
   rightHold: {fileID: 4756290670486080964}

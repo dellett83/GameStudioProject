@@ -2762,7 +2762,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8fce4bd108661c4d9740aea3bc971ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PriorityBoostAmount: 10
 --- !u!114 &365060542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15169,7 +15168,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
@@ -16456,7 +16455,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075627160}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!4 &2075627164
 Transform:
   m_ObjectHideFlags: 0
