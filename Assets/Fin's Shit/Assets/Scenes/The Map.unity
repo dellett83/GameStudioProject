@@ -15639,7 +15639,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightHouse_Collider
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7511558181221131132, guid: 794f598e0ddb7f0498356d3d9d3eefcf, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -16455,7 +16456,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075627160}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!4 &2075627164
 Transform:
   m_ObjectHideFlags: 0
