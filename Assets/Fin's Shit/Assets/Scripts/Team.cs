@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Team : NetworkBehaviour
 {
+    [SyncVar]
     public int teamID = 0;
 
     // Start is called before the first frame update
@@ -14,20 +15,31 @@ public class Team : NetworkBehaviour
     }
 
     // Update is called once per frame
-    [Command]
     void Update()
     {
         if (!isLocalPlayer) return;
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            teamID = 1;
+            JoinBlue();
             // Update UI for player on blue team
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            teamID = 2;
+            JoinRed();
             // Update UI for player on red team
         }
+    }
+
+    [Command]
+    void JoinBlue()
+    {
+        teamID = 1;
+    }
+
+    [Command]
+    void JoinRed()
+    {
+        teamID = 2;
     }
 }

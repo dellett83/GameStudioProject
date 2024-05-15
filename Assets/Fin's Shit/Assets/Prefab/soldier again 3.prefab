@@ -458,6 +458,7 @@ MonoBehaviour:
   syncInterval: 0
   hipsRB: {fileID: 5170654975288382621}
   headRB: {fileID: 6133564078141139619}
+  healthScript: {fileID: 8216622172733038814}
   headFloatingForce: 2500
   floatingHeight: 0.55
   floatingForce: 15000
@@ -472,7 +473,11 @@ MonoBehaviour:
   ragdoll: 0
   rotationForce: 1e+9
   dead: 0
+  despawnAfter: 2
   cameraLookAt: {fileID: 3729468817498958832}
+  spawnPoints:
+  - {fileID: 7144801038825930701, guid: 5b371e997518f5b4983c86edcf137b74, type: 3}
+  - {fileID: 6743669624866813170, guid: e5be51f7bae1f954b81a6dd175552f11, type: 3}
 --- !u!114 &9203422312292136917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,6 +554,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb57709882fd62148812dfa191139738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   teamScript: {fileID: -502416393393332805}
   ragdollScript: {fileID: 9094184303110951204}
   maxHealth: 100
