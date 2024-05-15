@@ -68,10 +68,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7517617825805086739, guid: 313b56103f69c714f93deebaacbca0b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d35bb1a1c1a40da4c991a7337c44621b, type: 2}
+    - target: {fileID: -332749902856284241, guid: 313b56103f69c714f93deebaacbca0b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f60b611acd04fcb4fa068e07a81c72ff, type: 2}
     - target: {fileID: 919132149155446097, guid: 313b56103f69c714f93deebaacbca0b5, type: 3}
       propertyPath: m_Name
       value: SharkFinal Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4159133152171124755, guid: 313b56103f69c714f93deebaacbca0b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c86b35ffb7c202242b5e81a2d177e7e6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

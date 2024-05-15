@@ -472,6 +472,7 @@ MonoBehaviour:
   ragdoll: 0
   rotationForce: 1e+9
   dead: 0
+  despawnAfter: 0
   cameraLookAt: {fileID: 3729468817498958832}
 --- !u!114 &9203422312292136917
 MonoBehaviour:
@@ -549,6 +550,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb57709882fd62148812dfa191139738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   teamScript: {fileID: -502416393393332805}
   ragdollScript: {fileID: 9094184303110951204}
   maxHealth: 100
@@ -3717,7 +3721,7 @@ PrefabInstance:
     - target: {fileID: -7517617825805086739, guid: 47fcacac08014a74a9d546e8adb79fe5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0ff731d5fa2858648b81d9fe090545b4, type: 2}
+      objectReference: {fileID: 2100000, guid: d35bb1a1c1a40da4c991a7337c44621b, type: 2}
     - target: {fileID: 919132149155446097, guid: 47fcacac08014a74a9d546e8adb79fe5, type: 3}
       propertyPath: m_Name
       value: SharkGun
