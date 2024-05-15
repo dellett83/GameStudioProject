@@ -60,11 +60,10 @@ public class bulletBehaviour : NetworkBehaviour
                     found = true;
                 }
             }
-
-            // Apply knockback force if hit a player
-            Rigidbody rb = col.gameObject.GetComponent<Rigidbody>();
-            if(rb != null) rb.AddForce(transform.forward * knockbackForce, ForceMode.Impulse);
         }
+        Rigidbody rb = col.gameObject.GetComponent<Rigidbody>();
+        if (rb != null) rb.AddForce(transform.forward * knockbackForce, ForceMode.Impulse);
+
         Destroy(gameObject);
     }
 }
