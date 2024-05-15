@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 using UnityEngine.UI;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -7,7 +8,7 @@ using System.Net.Sockets;
 
 public class IPgrabber : MonoBehaviour
 {
-    public Text hintText;
+    public TMP_Text hintText;
 
     private void Start()
     {
@@ -20,7 +21,7 @@ public class IPgrabber : MonoBehaviour
         {
             if (ip.AddressFamily == AddressFamily.InterNetwork)
             {
-                hintText.text = ip.ToString();
+                hintText.text = "Your IP: " + ip.ToString();
                 return ip.ToString();
             }
         }
