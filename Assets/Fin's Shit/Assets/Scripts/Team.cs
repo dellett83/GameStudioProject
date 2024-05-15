@@ -14,16 +14,17 @@ public class Team : NetworkBehaviour
     }
 
     // Update is called once per frame
+    [Command]
     void Update()
     {
         if (!isLocalPlayer) return;
 
-        if (Input.GetKeyDown(KeyCode.LeftBracket))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             teamID = 1;
             // Update UI for player on blue team
         }
-        if (Input.GetKeyDown(KeyCode.RightBracket))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             teamID = 2;
             // Update UI for player on red team
