@@ -48,9 +48,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  showRoomGUI: 1
+  showRoomGUI: 0
   readyToBegin: 0
   index: 0
+  uiPrefab: {fileID: 661625064974053065, guid: 9264506fad5d8884fbd82475a9c6fd13, type: 3}
 --- !u!114 &7830781596026437763
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,10 @@ using Mirror;
 /// </summary>
 public class NetworkRoomPlayerScript : NetworkRoomPlayer
 {
+
+    public GameObject uiPrefab;
+    private GameObject uiInstance;
+
     #region Start & Stop Callbacks
 
     /// <summary>
@@ -35,7 +39,27 @@ public override void OnStopServer() { }
 /// Called on every NetworkBehaviour when it is activated on a client.
 /// <para>Objects on the host have this function called, as there is a local client on the host. The values of SyncVars on object are guaranteed to be initialized correctly with the latest state from the server when this function is called on the client.</para>
 /// </summary>
-public override void OnStartClient() { }
+public override void OnStartClient() 
+    {
+        base.OnStartClient();
+
+        if (isLocalPlayer)
+        {
+            // Instantiate the UI prefab
+            uiInstance = Instantiate(uiPrefab);
+            UIManager uiManager = uiInstance.GetComponent<UIManager>();
+
+            if (uiManager != null)
+            {
+                uiManager.SetPlayer(this);
+                uiManager.UpdateStatus("You are the local player.");
+            }
+            else
+            {
+                Debug.LogError("UIManager component not found in UI prefab!");
+            }
+        }
+    }
 
 /// <summary>
 /// This is invoked on clients when the server has caused this object to be destroyed.
@@ -47,7 +71,19 @@ public override void OnStopClient() { }
 /// Called when the local player object has been set up.
 /// <para>This happens after OnStartClient(), as it is triggered by an ownership message from the server. This is an appropriate place to activate components or functionality that should only be active for the local player, such as cameras and input.</para>
 /// </summary>
-public override void OnStartLocalPlayer() { }
+public override void OnStartLocalPlayer() 
+    {
+        base.OnStartLocalPlayer();
+
+        if (uiInstance != null)
+        {
+            UIManager uiManager = uiInstance.GetComponent<UIManager>();
+            if (uiManager != null)
+            {
+                uiManager.UpdateStatus("Local player setup complete.");
+            }
+        }
+    }
 
 /// <summary>
 /// This is invoked on behaviours that have authority, based on context and <see cref="NetworkIdentity.hasAuthority">NetworkIdentity.hasAuthority</see>.
@@ -70,12 +106,43 @@ public override void OnStopAuthority() { }
 /// This is a hook that is invoked on all player objects when entering the room.
 /// <para>Note: isLocalPlayer is not guaranteed to be set until OnStartLocalPlayer is called.</para>
 /// </summary>
-public override void OnClientEnterRoom() { }
+public override void OnClientEnterRoom() 
+    {
+
+        base.OnClientEnterRoom();
+        Debug.Log("OnClientEnterRoom called.");
+
+        if (isLocalPlayer && uiInstance != null)
+        {
+            UIManager uiManager = uiInstance.GetComponent<UIManager>();
+            if (uiManager != null)
+            {
+                uiManager.UpdateStatus("You have entered the room.");
+            }
+        }
+
+    }
 
 /// <summary>
 /// This is a hook that is invoked on all player objects when exiting the room.
 /// </summary>
-public override void OnClientExitRoom() { }
+public override void OnClientExitRoom() 
+    {
+
+        base.OnClientExitRoom();
+        Debug.Log("OnClientExitRoom called.");
+
+        if (isLocalPlayer && uiInstance != null)
+        {
+            UIManager uiManager = uiInstance.GetComponent<UIManager>();
+            if (uiManager != null)
+            {
+                uiManager.UpdateStatus("You have exited the room.");
+            }
+            uiInstance.SetActive(false);
+        }
+
+    }
 
 #endregion
 
@@ -86,7 +153,22 @@ public override void OnClientExitRoom() { }
 /// </summary>
 /// <param name="oldIndex">The old index value</param>
 /// <param name="newIndex">The new index value</param>
-public override void IndexChanged(int oldIndex, int newIndex) { }
+public override void IndexChanged(int oldIndex, int newIndex) 
+    {
+
+        base.IndexChanged(oldIndex, newIndex);
+        Debug.Log($"IndexChanged called: {oldIndex} -> {newIndex}");
+
+        if (isLocalPlayer && uiInstance != null)
+        {
+            UIManager uiManager = uiInstance.GetComponent<UIManager>();
+            if (uiManager != null)
+            {
+                uiManager.UpdateStatus($"Player index changed from {oldIndex} to {newIndex}");
+            }
+        }
+
+    }
 
 /// <summary>
 /// This is a hook that is invoked on clients when a RoomPlayer switches between ready or not ready.
@@ -94,16 +176,31 @@ public override void IndexChanged(int oldIndex, int newIndex) { }
 /// </summary>
 /// <param name="oldReadyState">The old readyState value</param>
 /// <param name="newReadyState">The new readyState value</param>
-public override void ReadyStateChanged(bool oldReadyState, bool newReadyState) { }
+public override void ReadyStateChanged(bool oldReadyState, bool newReadyState) 
+    {
+
+        base.ReadyStateChanged(oldReadyState, newReadyState);
+        Debug.Log($"ReadyStateChanged called: {oldReadyState} -> {newReadyState}");
+
+        if (isLocalPlayer && uiInstance != null)
+        {
+            UIManager uiManager = uiInstance.GetComponent<UIManager>();
+            if (uiManager != null)
+            {
+                uiManager.UpdateReadyButton(newReadyState);
+            }
+        }
+
+    }
 
 #endregion
 
 #region Optional UI
 
-public override void OnGUI()
-{
-    base.OnGUI();
-}
+//public override void OnGUI()
+//{
+//    base.OnGUI();
+//}
 
     #endregion
 }

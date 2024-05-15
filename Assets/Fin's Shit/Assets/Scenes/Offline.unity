@@ -444,7 +444,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  showRoomGUI: 1
+  showRoomGUI: 0
   minPlayers: 1
   roomPlayerPrefab: {fileID: 419387876529967081, guid: a8483e12298992049980b8bf215033c5, type: 3}
   RoomScene: Assets/Fin's Shit/Assets/Scenes/Room.unity
