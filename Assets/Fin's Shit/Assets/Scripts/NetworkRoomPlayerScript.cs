@@ -126,7 +126,7 @@ public class NetworkRoomPlayerScript : NetworkRoomPlayer
             UIManager uiManager = uiInstance.GetComponent<UIManager>();
             if (uiManager != null)
             {
-                uiManager.UpdateStatus("You have entered the room.");
+                uiManager.UpdateStatus("You are connected to: " + NetworkManager.singleton.networkAddress);
             }
             AddPlayer();
             Debug.Log("Players in game: " + playersInGame);
@@ -191,7 +191,7 @@ public class NetworkRoomPlayerScript : NetworkRoomPlayer
             if (uiManager != null)
             {
                 //uiManager.UpdateStatus($"Player index changed from {oldIndex} to {newIndex}");
-                uiManager.UpdateStatus("You have entered the room.");
+                uiManager.UpdateStatus("You are connected to: " + NetworkManager.singleton.networkAddress);
             }
         }
 
