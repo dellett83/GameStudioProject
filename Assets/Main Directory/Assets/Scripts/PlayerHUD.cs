@@ -28,6 +28,7 @@ public class PlayerHUD : NetworkBehaviour
     public GameObject winPanel;
     public GameObject losePanel;
     public GameObject pausePanel;
+    public GameObject joinTeamPanel;
 
     public bool gameOver = false;
 
@@ -48,12 +49,23 @@ public class PlayerHUD : NetworkBehaviour
         losePanel.SetActive(false);
         pausePanel = GameObject.Find("Pause");
         pausePanel.SetActive(false);
+        joinTeamPanel = GameObject.Find("Join team");
+        joinTeamPanel.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!isLocalPlayer) return;
+
+        if(teamScript.teamID == 0)
+        {
+            joinTeamPanel.SetActive(true);
+        }
+        else
+        {
+            joinTeamPanel.SetActive(false);
+        }
 
         ammoText.text = ammoCount.ToString();
         
@@ -63,12 +75,12 @@ public class PlayerHUD : NetworkBehaviour
 
         redText.text = GameManager.Instance.redScore.ToString();
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !pausePanel.activeInHierarchy)
+        if (Input.GetKeyDown(KeyCode.Escape) && !pausePanel.activeInHierarchy && !gameOver)
         {
             pausePanel.SetActive(true);
             UnityEngine.Cursor.lockState = CursorLockMode.None;
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && pausePanel.activeInHierarchy)
+        else if (Input.GetKeyDown(KeyCode.Escape) && pausePanel.activeInHierarchy && !gameOver)
         {
             pausePanel.SetActive(false);
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
@@ -76,6 +88,7 @@ public class PlayerHUD : NetworkBehaviour
 
         if (GameManager.Instance.blueWon && teamScript.teamID == 1 && !gameOver)
         {
+            pausePanel.SetActive(false);
             gameOver = true;
             winPanel.SetActive(true);
             playerMovementScript.gameOver = true;
@@ -83,6 +96,7 @@ public class PlayerHUD : NetworkBehaviour
         }
         else if (GameManager.Instance.blueWon && teamScript.teamID == 2 && !gameOver)
         {
+            pausePanel.SetActive(false);
             gameOver = true;
             losePanel.SetActive(true);
             playerMovementScript.gameOver = true;
@@ -90,6 +104,7 @@ public class PlayerHUD : NetworkBehaviour
         }
         else if (GameManager.Instance.redWon && teamScript.teamID == 1 && !gameOver)
         {
+            pausePanel.SetActive(false);
             gameOver = true;
             losePanel.SetActive(true);
             playerMovementScript.gameOver = true;
@@ -97,6 +112,7 @@ public class PlayerHUD : NetworkBehaviour
         }
         else if (GameManager.Instance.redWon && teamScript.teamID == 2 && !gameOver)
         {
+            pausePanel.SetActive(false);
             gameOver = true;
             winPanel.SetActive(true);
             playerMovementScript.gameOver = true;
