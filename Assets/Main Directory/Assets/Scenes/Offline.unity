@@ -416,8 +416,8 @@ MonoBehaviour:
   sendRate: 60
   autoStartServerBuild: 0
   autoConnectClientBuild: 0
-  offlineScene: Assets/Fin's Shit/Assets/Scenes/Offline.unity
-  onlineScene: Assets/Fin's Shit/Assets/Scenes/Room.unity
+  offlineScene: Assets/Main Directory/Assets/Scenes/Offline.unity
+  onlineScene: Assets/Main Directory/Assets/Scenes/Room.unity
   transport: {fileID: 116012263}
   networkAddress: localhost
   maxConnections: 10
@@ -447,8 +447,8 @@ MonoBehaviour:
   showRoomGUI: 0
   minPlayers: 1
   roomPlayerPrefab: {fileID: 419387876529967081, guid: a8483e12298992049980b8bf215033c5, type: 3}
-  RoomScene: Assets/Fin's Shit/Assets/Scenes/Room.unity
-  GameplayScene: Assets/Fin's Shit/Assets/Scenes/The Map.unity
+  RoomScene: Assets/Main Directory/Assets/Scenes/Room.unity
+  GameplayScene: Assets/Main Directory/Assets/Scenes/The Map.unity
   _allPlayersReady: 0
   roomSlots: []
   clientIndex: 0
