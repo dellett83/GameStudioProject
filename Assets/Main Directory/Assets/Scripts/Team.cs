@@ -8,15 +8,30 @@ public class Team : NetworkBehaviour
     [SyncVar]
     public int teamID = 0;
 
+    public GameObject teamIndicator;
+    public Material blue;
+    public Material red;
+    private Renderer renderer;
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        renderer = teamIndicator.GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(teamID == 1)
+        {
+            renderer.material = blue;
+        }
+        else if (teamID == 2)
+        {
+            renderer.material = red;
+        }
+
         if (!isLocalPlayer) return;
 
         if (Input.GetKeyDown(KeyCode.O))
@@ -40,6 +55,6 @@ public class Team : NetworkBehaviour
     [Command]
     void JoinRed()
     {
-        teamID = 2;
+        teamID = 2;  
     }
 }
