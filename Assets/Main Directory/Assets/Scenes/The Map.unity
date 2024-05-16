@@ -17775,7 +17775,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  scoreToWin: 1
+  scoreToWin: 25
   blueWon: 0
   redWon: 0
   redScore: 0
