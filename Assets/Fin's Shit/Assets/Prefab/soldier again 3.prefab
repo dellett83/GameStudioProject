@@ -500,6 +500,7 @@ MonoBehaviour:
   rotationForce: 1e+9
   dead: 0
   despawnAfter: 3
+  dustParticles: {fileID: 1444676098226952042}
   cameraLookAt: {fileID: 3729468817498958832}
   spawnPoints:
   - {fileID: 7144801038825930701, guid: 5b371e997518f5b4983c86edcf137b74, type: 3}
@@ -3712,15 +3713,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6363910798053467599, guid: f2a3154c7515dff4ab2287f9e4552de7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.135
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 6363910798053467599, guid: f2a3154c7515dff4ab2287f9e4552de7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.276
+      value: -0.017
       objectReference: {fileID: 0}
     - target: {fileID: 6363910798053467599, guid: f2a3154c7515dff4ab2287f9e4552de7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.005968325
+      value: -0.006
       objectReference: {fileID: 0}
     - target: {fileID: 6363910798053467599, guid: f2a3154c7515dff4ab2287f9e4552de7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3759,6 +3760,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2a3154c7515dff4ab2287f9e4552de7, type: 3}
+--- !u!1 &1444676098226952042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1755532028216062756, guid: f2a3154c7515dff4ab2287f9e4552de7, type: 3}
+  m_PrefabInstance: {fileID: 887317247158330446}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6053195732302479745 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6363910798053467599, guid: f2a3154c7515dff4ab2287f9e4552de7, type: 3}

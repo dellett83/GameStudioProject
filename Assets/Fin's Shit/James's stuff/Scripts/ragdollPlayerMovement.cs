@@ -42,6 +42,11 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     [SyncVar]
     private float despawnTimer = 0;
 
+    [SyncVar]
+    private bool dustPause = false;
+
+    public GameObject dustParticles;
+
     public Transform cameraLookAt;
 
     private CinemachineFreeLook thirsPersonCam;
@@ -116,6 +121,15 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             return;
         }
 
+        if (dustPause)
+        {
+            dustParticles.SetActive(false);
+        }
+        else
+        {
+            dustParticles.SetActive(true);
+        }
+
         // Limit to how long can be in ragdoll mode
         if (ragdollTimerStart) ragdollTimer += Time.deltaTime;
 
@@ -142,6 +156,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         if (Input.GetKeyDown("left ctrl"))
         {
             ragdoll = !ragdoll;
+            dustPause = true;
         }
 
         // Stop before we do code that allows ragdoll to be controlled
@@ -153,6 +168,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
                 firstPersonCamBoosted = false;
             }
 
+            dustPause = true;
+
             return;
         }
 
@@ -162,10 +179,9 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             ragdoll = true;
             hipsRB.AddForce((camera.transform.forward + new Vector3(0.0f, 1.0f, 0.0f)) * diveForce, ForceMode.Impulse);
             ragdollTimerStart = true;
+            dustPause = true;
             return;
         }
-
-        
 
         // Jump cooldown started
         if (!canJump)
@@ -229,6 +245,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         // Velocity in only horizontal direction
         Vector3 nonVertVel = new Vector3 (hipsRB.velocity.x, 0f, hipsRB.velocity.z);
 
+        
+
         if (Input.GetMouseButton(1))
         {
             if (!firstPersonCamBoosted)
@@ -281,10 +299,23 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             Debug.DrawLine(transform.position, floatPoint.point);
             // Apply correct force to make it float nicely (idk how it works)
             CharacterFloat(floatPoint);
-
+            if (nonVertVel.magnitude > 1.0f)
+            {
+                dustPause = false;
+            }
+            else
+            {
+                dustPause = true;
+            }
             // Make it so player can jump if they touch the ground
             canJump = true;
         }
+        else
+        {
+            dustPause = true;
+        }
+
+        
 
         // Apply force upwards to the head
         headRB.AddForce(Vector3.up * headFloatingForce * Time.deltaTime);
