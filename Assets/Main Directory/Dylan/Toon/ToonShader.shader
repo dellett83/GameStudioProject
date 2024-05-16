@@ -14,9 +14,12 @@
 		[HDR]
 		_RimColor("Rim Color", Color) = (1,1,1,1)
 		_RimAmount("Rim Amount", Range(0, 1)) = 0.716
-			// Control how smoothly the rim blends when approaching unlit parts of the surface.
+		// Control how smoothly the rim blends when approaching unlit parts of the surface.
 
-			_RimThreshold("Rim Threshold", Range(0, 1)) = 0.1
+		_RimThreshold("Rim Threshold", Range(0, 1)) = 0.1
+
+			// Controls the Brightness of the shader.
+        _Brightness("Brightness", Range(0, 2)) = 1.0
 	}
 		SubShader
 		{
@@ -84,6 +87,8 @@
 			float _RimAmount;
 			float _RimThreshold;
 
+			float _Brightness;
+
 			float4 frag(v2f i) : SV_Target
 			{
 				float3 normal = normalize(i.worldNormal);
@@ -122,7 +127,7 @@
 
 				float4 sample = tex2D(_MainTex, i.uv);
 
-				return (light + _AmbientColor + specular + rim) * _Color * sample;
+				return (light + _AmbientColor + specular + rim) * _Color * sample *  _Brightness;
 			}
 			ENDCG
 		}
