@@ -39,6 +39,10 @@ public class footIKBehaviour : NetworkBehaviour
     private bool playLeftSound = false;
     private bool playRightSound = false;
 
+    public AudioSource footstepSound;
+
+    public AudioClip[] footstepSounds;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -125,6 +129,10 @@ public class footIKBehaviour : NetworkBehaviour
                     if (playLeftSound)
                     {
                         // Code to play footstep sound
+                        int length = footstepSounds.Length;
+                        int rand = Random.Range(0, length);
+                        footstepSound.clip = footstepSounds[rand];
+                        footstepSound.Play();
 
                         playLeftSound = false;
                     }
@@ -182,6 +190,10 @@ public class footIKBehaviour : NetworkBehaviour
                     if (playRightSound)
                     {
                         // Code to play footstep sound
+                        int length = footstepSounds.Length;
+                        int rand = Random.Range(0, length);
+                        footstepSound.clip = footstepSounds[rand];
+                        footstepSound.Play();
 
                         playRightSound = false;
                     }

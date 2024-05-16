@@ -22,6 +22,15 @@ public class PlayerHealth : NetworkBehaviour
     [SyncVar]
     public bool justDied = false;
 
+    public AudioSource AS;
+
+    public AudioClip[] damageSounds;
+    public AudioClip deathSound;
+
+    public AudioSource almostDeadSound;
+    [SyncVar]
+    public bool playAlmostDead = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +58,17 @@ public class PlayerHealth : NetworkBehaviour
         //if (!isLocalPlayer) return;
         regenTimer += Time.deltaTime;
 
+        if (health < 25 && playAlmostDead)
+        {
+            almostDeadSound.Play();
+            playAlmostDead = false;
+        }
+        else if (health > 25)
+        {
+            almostDeadSound.Stop();
+            playAlmostDead = true;
+        }
+
         if (health <= 0 && !justDied)
         {
             health = 0;
@@ -73,6 +93,11 @@ public class PlayerHealth : NetworkBehaviour
         // If me and bullet are on same team, I don't get damaged
         if (_bulletsTeam == teamScript.teamID) return;
 
+        int length = damageSounds.Length;
+        int rand = Random.Range(0, length);
+        AS.clip = damageSounds[rand];
+        AS.Play();
+
         health -= _damage;
 
         regenTimer = 0;
@@ -81,6 +106,8 @@ public class PlayerHealth : NetworkBehaviour
 
     void Die(int _teamID)
     {
+        AS.clip = deathSound;
+        AS.Play();
         justDied = true;
         ragdollScript.dead = true;
         GameManager.Instance.PlayerDie(_teamID);

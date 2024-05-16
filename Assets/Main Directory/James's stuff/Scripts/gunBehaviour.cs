@@ -35,6 +35,8 @@ public class gunBehaviour : NetworkBehaviour
     public GameObject hips;
     public GameObject rightHand;
 
+    public AudioSource gunShot;
+
     public TMP_Text ammoText;
 
     public int maxAmmo;
@@ -221,6 +223,7 @@ public class gunBehaviour : NetworkBehaviour
         // Shoots bullet if is able to shoot
         if (!fireing && !isRagdoll && !reloading && currentAmmo > 0 && Input.GetMouseButton(0))
         {
+            gunShot.Play();
             currentAmmo--;
             // Creates a bullet pointing in the correct direciton
             //GameObject spawnBullet = Instantiate(bullet, shootFromHere.transform.position, transform.rotation);

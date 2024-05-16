@@ -50,6 +50,10 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     [SyncVar(hook = nameof(OnDustPauseChanged))]
     public bool dustPause = false;
 
+    public AudioSource deathSound;
+    public AudioSource jumpSound;
+    public AudioSource diveSound;
+
     public GameObject dustParticles;
 
     public Transform cameraLookAt;
@@ -100,7 +104,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         {
             if (!once)
             {
-
+                deathSound.Play();
                 thirsPersonCam.Follow = null;
                 thirsPersonCam.LookAt = null;
 
@@ -196,6 +200,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         // Dive mechanic, launch player forward with left shift
         if (Input.GetKeyDown("left shift"))
         {
+            diveSound.Play();
             ragdoll = true;
             hipsRB.AddForce((camera.transform.forward + new Vector3(0.0f, 1.0f, 0.0f)) * diveForce, ForceMode.Impulse);
             ragdollTimerStart = true;
@@ -343,6 +348,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         // Jump if press space
         if (canJump && Input.GetKeyDown(KeyCode.Space))
         {
+            jumpSound.Play();
             // Apply force upwards to jump
             hipsRB.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
 
