@@ -50,7 +50,6 @@ public class PlayerHealth : NetworkBehaviour
         if (health <= 0 && !justDied)
         {
             health = 0;
-            Debug.Log("health is 0");
             
             Die(teamScript.teamID);
         }
@@ -73,19 +72,15 @@ public class PlayerHealth : NetworkBehaviour
         if (_bulletsTeam == teamScript.teamID) return;
 
         health -= _damage;
-        Debug.Log(health);
 
         regenTimer = 0;
         // ui also update to show new health
     }
 
-
     void Die(int _teamID)
     {
         justDied = true;
         ragdollScript.dead = true;
-        Debug.Log(ragdollScript.dead);
-        //NetworkBehaviour.Destroy(gameObject);
         GameManager.Instance.PlayerDie(_teamID);
     }
 }
