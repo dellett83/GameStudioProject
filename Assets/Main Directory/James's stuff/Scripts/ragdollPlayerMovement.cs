@@ -33,6 +33,9 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     [SyncVar]
     public bool ragdoll = false;
 
+    [SyncVar]
+    public bool gameOver = false;
+
     public float rotationForce = 100f;
 
     [SyncVar]
@@ -92,6 +95,12 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameOver)
+        {
+            ragdoll = true;
+            return;
+        }
+
         if (dead)
         {
             ragdoll = true;

@@ -64,28 +64,28 @@ public class PlayerHUD : NetworkBehaviour
         {
             gameOver = true;
             winPanel.SetActive(true);
-            playerMovementScript.ragdoll = true;
+            playerMovementScript.gameOver = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
         }
         else if (GameManager.Instance.blueWon && teamScript.teamID == 2 && !gameOver)
         {
             gameOver = true;
             losePanel.SetActive(true);
-            playerMovementScript.ragdoll = true;
+            playerMovementScript.gameOver = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
         }
         else if (GameManager.Instance.redWon && teamScript.teamID == 1 && !gameOver)
         {
             gameOver = true;
             losePanel.SetActive(true);
-            playerMovementScript.ragdoll = true;
+            playerMovementScript.gameOver = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
         }
         else if (GameManager.Instance.redWon && teamScript.teamID == 2 && !gameOver)
         {
             gameOver = true;
             winPanel.SetActive(true);
-            playerMovementScript.ragdoll = true;
+            playerMovementScript.gameOver = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
         }
     }
