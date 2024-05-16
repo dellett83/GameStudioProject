@@ -52,6 +52,8 @@ MonoBehaviour:
   readyToBegin: 0
   index: 0
   uiPrefab: {fileID: 661625064974053065, guid: 9264506fad5d8884fbd82475a9c6fd13, type: 3}
+  joinGameIcon: {fileID: 7480077827960363602, guid: 3002e9b74c47d1d48bf1793260b36fd1, type: 3}
+  canvasPrefab: {fileID: 5904047302208037464, guid: a41f2290e77033c4faf642a9ef44f9ca, type: 3}
 --- !u!114 &7830781596026437763
 MonoBehaviour:
   m_ObjectHideFlags: 0
