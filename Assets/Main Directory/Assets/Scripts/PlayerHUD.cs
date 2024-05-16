@@ -27,6 +27,7 @@ public class PlayerHUD : NetworkBehaviour
 
     public GameObject winPanel;
     public GameObject losePanel;
+    public GameObject pausePanel;
 
     public bool gameOver = false;
 
@@ -45,6 +46,8 @@ public class PlayerHUD : NetworkBehaviour
         winPanel.SetActive(false);
         losePanel = GameObject.Find("Loser");
         losePanel.SetActive(false);
+        pausePanel = GameObject.Find("Pause");
+        pausePanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -59,6 +62,17 @@ public class PlayerHUD : NetworkBehaviour
         blueText.text = GameManager.Instance.blueScore.ToString();
 
         redText.text = GameManager.Instance.redScore.ToString();
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !pausePanel.activeInHierarchy)
+        {
+            pausePanel.SetActive(true);
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && pausePanel.activeInHierarchy)
+        {
+            pausePanel.SetActive(false);
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        }
 
         if (GameManager.Instance.blueWon && teamScript.teamID == 1 && !gameOver)
         {

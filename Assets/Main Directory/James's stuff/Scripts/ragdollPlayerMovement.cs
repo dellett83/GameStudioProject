@@ -35,6 +35,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
     [SyncVar]
     public bool gameOver = false;
+    [SyncVar]
+    public bool once = false;
 
     public float rotationForce = 100f;
 
@@ -89,7 +91,6 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             firstPersonCam.Follow = null;
             firstPersonCam.LookAt = null;
         }
-
     }
 
     // Update is called once per frame
@@ -97,6 +98,16 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     {
         if (gameOver)
         {
+            if (!once)
+            {
+
+                thirsPersonCam.Follow = null;
+                thirsPersonCam.LookAt = null;
+
+                firstPersonCam.Follow = null;
+                firstPersonCam.LookAt = null;
+                once = true;
+            }
             ragdoll = true;
             return;
         }
