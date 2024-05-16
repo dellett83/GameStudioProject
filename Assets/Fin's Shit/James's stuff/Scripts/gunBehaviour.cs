@@ -8,10 +8,16 @@ public class gunBehaviour : NetworkBehaviour
     public DitzelGames.FastIK.FastIKFabric leftHandIKScript;
     public DitzelGames.FastIK.FastIKFabric rightHandIKScript;
 
+    [SyncVar]
     public ragdollPlayerMovement playerMovementScript;
+
+    //[SyncVar]
     public Team teamScript;
-    private bool isRagdoll = false;
-    private bool isRagdollChanged = false;
+
+    [SyncVar(hook = nameof(OnRagdollStateChanged))]
+    public bool isRagdoll = false;
+    [SyncVar]
+    public bool isRagdollChanged = false;
 
     private Camera camera;
     private GameObject crosshair;
@@ -55,15 +61,15 @@ public class gunBehaviour : NetworkBehaviour
     {
         //if (isLocalPlayer)
         //{
-        camera = Camera.main;
-        crosshair = GameObject.Find("Crosshair");
+            camera = Camera.main;
+            crosshair = GameObject.Find("Crosshair");
 
-        leftHandIKScript.enabled = true;
-        rightHandIKScript.enabled = true;
+            leftHandIKScript.enabled = true;
+            rightHandIKScript.enabled = true;
 
-        currentAmmo = maxAmmo;
+            currentAmmo = maxAmmo;
 
-        startingRotation = transform.rotation;
+            startingRotation = transform.rotation;
         //}
     }
 
@@ -134,7 +140,7 @@ public class gunBehaviour : NetworkBehaviour
         if (isRagdoll != playerMovementScript.ragdoll) // Update our ragdoll state if it's not the same as the players
         {
             isRagdollChanged = true;
-            isRagdoll = playerMovementScript.ragdoll;
+            CmdSetRagdollState(playerMovementScript.ragdoll);
         }
 
         if (isRagdollChanged && isRagdoll) // Wasn't a ragdoll and now is
@@ -166,7 +172,7 @@ public class gunBehaviour : NetworkBehaviour
             }
             else
             {
-                // Make gun aim vertically based on camera horizontal rotation
+                //// Make gun aim vertically based on camera horizontal rotation
                 transform.localRotation = Quaternion.Euler(camera.transform.eulerAngles.x - 90, hips.transform.rotation.y + 90, hips.transform.rotation.z);
             }
         }
@@ -225,6 +231,12 @@ public class gunBehaviour : NetworkBehaviour
     }
 
     [Command]
+    void CmdSetRagdollState(bool ragdollState)
+    {
+        isRagdoll = ragdollState;
+    }
+
+    [Command]
     void ShootBullet(Vector3 position, Quaternion rotation)
     {
         if (!NetworkServer.active)
@@ -237,5 +249,21 @@ public class gunBehaviour : NetworkBehaviour
         bulletBehaviour bulletsTeamScript = spawnBullet.GetComponent<bulletBehaviour>();
         bulletsTeamScript.teamID = teamScript.teamID;
         NetworkServer.Spawn(spawnBullet);
+    }
+
+    void OnRagdollStateChanged(bool oldState, bool newState)
+    {
+        UpdateIKScripts(newState);
+    }
+
+    void UpdateIKScripts(bool ragdollState)
+    {
+        leftHandIKScript.enabled = !ragdollState;
+        rightHandIKScript.enabled = !ragdollState;
+
+        if (!ragdollState)
+        {
+            transform.position = gunTargetLocation.transform.position;
+        }
     }
 }

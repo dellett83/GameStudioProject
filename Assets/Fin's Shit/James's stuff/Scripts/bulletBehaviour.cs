@@ -58,7 +58,7 @@ public class bulletBehaviour : NetworkBehaviour
                 }
                 else
                 {
-                    playerHealth.DamagePlayer(_damage, teamID);
+                    DamagePlayer(_damage, teamID, playerHealth);
                     found = true;
                 }
             }
@@ -67,5 +67,11 @@ public class bulletBehaviour : NetworkBehaviour
         if (rb != null) rb.AddForce(transform.forward * knockbackForce, ForceMode.Impulse);
 
         Destroy(gameObject);
+    }
+
+    
+    void DamagePlayer(int _damage, int _teamID, PlayerHealth healthScript)
+    {
+        healthScript.DamagePlayer(_damage, _teamID);
     }
 }

@@ -27,13 +27,15 @@ public class GameManager : NetworkBehaviour
         
     }
 
+    [Server]
     private void Awake()
     {
-        if (!isServer) return;
+        //if (!isServer) return;
         Instance = this;
     }
 
     // Update is called once per frame
+    [Server]
     void Update()
     {
         if (!isServer) return;
@@ -42,7 +44,7 @@ public class GameManager : NetworkBehaviour
         if (blueRespawnTimer > respawnTime)
         {
             startBlueRespawnTimer = false;
-            // Function to respawn blue player maybe?
+            // Function to respawn blue player
         }
 
         if (startRedRespawnTimer) redRespawnTimer += Time.deltaTime;
@@ -61,6 +63,7 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    [Server]
     public void PlayerDie(int teamID) // 1 is blue team, 2 is red team
     {
         // Do stuff, update score, start correct timer to respawn player
@@ -69,12 +72,14 @@ public class GameManager : NetworkBehaviour
         if (teamID == 1)
         {
             startBlueRespawnTimer = true;
+            Debug.Log("BLUE PLAYER HAS DIED");
             redScore++;
             // Update UI
         }
         else if (teamID == 2)
         {
             startRedRespawnTimer = true;
+            Debug.Log("RED PLAYER HAS DIED");
             blueScore++;
             // Update UI
         }
@@ -84,11 +89,13 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    [Server]
     void BlueWins()
     {
         // idk
     }
 
+    [Server]
     void RedWins()
     {
         // idk

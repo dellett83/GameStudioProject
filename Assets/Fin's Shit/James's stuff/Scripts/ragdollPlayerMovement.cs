@@ -10,6 +10,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public Rigidbody hipsRB;
     private Camera camera;
     public Rigidbody headRB;
+    [SyncVar]
+    public PlayerHealth healthScript;
 
     // Can make most private just public for initial development
     private bool canJump = true;
@@ -28,11 +30,16 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public float ragdollTimerEnd = 3f;
     private float ragdollTimer = 0f;
     private bool ragdollTimerStart = false;
+    [SyncVar]
     public bool ragdoll = false;
+
     public float rotationForce = 100f;
 
+    [SyncVar]
     public bool dead = false;
+    [SyncVar]
     public float despawnAfter;
+    [SyncVar]
     private float despawnTimer = 0;
 
     public Transform cameraLookAt;
@@ -40,6 +47,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     private CinemachineFreeLook thirsPersonCam;
     private CinemachineVirtualCamera firstPersonCam;
     private bool firstPersonCamBoosted = false;
+
+    public Transform[] spawnPoints;
 
     // Start is called before the first frame update
     void Start()
@@ -78,10 +87,37 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dead)
+        {
+            ragdoll = true;
+            despawnTimer += Time.deltaTime;
+            
+            if (despawnTimer > despawnAfter)
+            {
+                int length = spawnPoints.Length;
+                int rand = Random.Range(0, length);
+                transform.position = spawnPoints[rand].position;
+                transform.rotation = spawnPoints[rand].rotation;
+                healthScript.health = 100;
+
+                healthScript.justDied = false;
+
+                ragdoll = false;
+
+                dead = false;
+                despawnTimer = 0;
+            }
+            
+            return;
+        }
+
         if (!isLocalPlayer)
         {
             return;
         }
+
+        // Limit to how long can be in ragdoll mode
+        if (ragdollTimerStart) ragdollTimer += Time.deltaTime;
 
         // Make camera follow me if it's not follolwing anything (scuffed)
         if (thirsPersonCam.Follow == null)
@@ -93,16 +129,6 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             firstPersonCam.LookAt = cameraLookAt;
         }
 
-        if (dead)
-        {
-            despawnTimer += Time.deltaTime;
-            if (despawnTimer > despawnAfter) Destroy(gameObject);
-            ragdoll = true;
-            return;
-        }
-
-        // Limit to how long can be in ragdoll mode
-        if (ragdollTimerStart) ragdollTimer += Time.deltaTime;
 
         // Turn ragdoll mode off and reset variables
         if (ragdollTimer >= ragdollTimerEnd)

@@ -9,24 +9,31 @@ public class PlayerHealth : NetworkBehaviour
     public ragdollPlayerMovement ragdollScript;
 
     public int maxHealth;
+    [SyncVar]
     public float healthRegenTime;
     public float healthRegenRate;
+    [SyncVar]
     public float health;
 
+    [SyncVar]
     private float regenTimer = 0;
+
+    [SyncVar]
+    public bool justDied = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        if (!isLocalPlayer) return;
+        //if (!isLocalPlayer) return;
         health = maxHealth;
+        justDied = false;
     }
 
     void FixedUpdate()
     {
-        if (!isLocalPlayer) return;
-        if (regenTimer > healthRegenRate && health < maxHealth)
+        //if (!isLocalPlayer) return;
+        if (regenTimer > healthRegenTime && health < maxHealth)
         {
             health += healthRegenRate;
 
@@ -37,19 +44,23 @@ public class PlayerHealth : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLocalPlayer) return;
+        //if (!isLocalPlayer) return;
         regenTimer += Time.deltaTime;
 
-        if (health <= 0)
+        if (health <= 0 && !justDied)
         {
             health = 0;
             Debug.Log("health is 0");
-            ragdollScript.dead = true;
+            
             Die(teamScript.teamID);
-             // Maybe use [command]?
+        }
+        else if (health <= 0)
+        {
+            health = 0;
         }
     }
 
+    //[ServerCallback]
     public void DamagePlayer(int _damage, int _bulletsTeam)
     {
         // If I'm not on team I don't get damaged
@@ -68,9 +79,13 @@ public class PlayerHealth : NetworkBehaviour
         // ui also update to show new health
     }
 
-    [Command]
+
     void Die(int _teamID)
     {
+        justDied = true;
+        ragdollScript.dead = true;
+        Debug.Log(ragdollScript.dead);
+        //NetworkBehaviour.Destroy(gameObject);
         GameManager.Instance.PlayerDie(_teamID);
     }
 }
