@@ -42,8 +42,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     [SyncVar]
     private float despawnTimer = 0;
 
-    [SyncVar]
-    private bool dustPause = false;
+    [SyncVar(hook = nameof(OnDustPauseChanged))]
+    public bool dustPause = false;
 
     public GameObject dustParticles;
 
@@ -156,7 +156,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         if (Input.GetKeyDown("left ctrl"))
         {
             ragdoll = !ragdoll;
-            dustPause = true;
+            CmdSetDustPause(true);
         }
 
         // Stop before we do code that allows ragdoll to be controlled
@@ -168,7 +168,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
                 firstPersonCamBoosted = false;
             }
 
-            dustPause = true;
+            CmdSetDustPause(true);
 
             return;
         }
@@ -301,18 +301,18 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             CharacterFloat(floatPoint);
             if (nonVertVel.magnitude > 1.0f)
             {
-                dustPause = false;
+                CmdSetDustPause(false);
             }
             else
             {
-                dustPause = true;
+                CmdSetDustPause(true);
             }
             // Make it so player can jump if they touch the ground
             canJump = true;
         }
         else
         {
-            dustPause = true;
+            CmdSetDustPause(true);
         }
 
         
@@ -376,5 +376,16 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     public void GunRecoil(float recoilForce)
     {
         hipsRB.AddForce(-hipsRB.transform.forward * recoilForce, ForceMode.Impulse);
+    }
+
+    [Command]
+    void CmdSetDustPause(bool state)
+    {
+        dustPause = state;
+    }
+
+    void OnDustPauseChanged(bool oldValue, bool newValue)
+    {
+        dustParticles.SetActive(!newValue);
     }
 }
