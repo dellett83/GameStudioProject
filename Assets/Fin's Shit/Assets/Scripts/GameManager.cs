@@ -8,8 +8,11 @@ public class GameManager : NetworkBehaviour
     public static GameManager Instance;
 
     public int scoreToWin;
-    private int redScore = 0;
-    private int blueScore = 0;
+
+    [SyncVar]
+    public int redScore = 0;
+    [SyncVar]
+    public int blueScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +20,7 @@ public class GameManager : NetworkBehaviour
         
     }
 
-    [Server]
+    //[Server]
     private void Awake()
     {
         //if (!isServer) return;
@@ -40,7 +43,6 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    [Command]
     public void PlayerDie(int teamID) // 1 is blue team, 2 is red team
     {
         // Do stuff, update score, start correct timer to respawn player
@@ -64,13 +66,11 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    [Server]
     void BlueWins()
     {
         // idk
     }
 
-    [Server]
     void RedWins()
     {
         // idk

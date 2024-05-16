@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 456473940233171158}
   - component: {fileID: -6205541633559306697}
   - component: {fileID: -502416393393332805}
+  - component: {fileID: 3516473440445985483}
   m_Layer: 0
   m_Name: soldier again 3
   m_TagString: Player
@@ -301,6 +302,30 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   teamID: 0
+--- !u!114 &3516473440445985483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856653514851071445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad887de81c474144f9c8a5a550511d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  canvas: {fileID: 7195041042235197152, guid: 5a74c27be9b45284d8b5b94364895e04, type: 3}
+  ammoCount: 0
+  ammoText: {fileID: 0}
+  healthValue: 0
+  healthSlider: {fileID: 0}
+  BlueScore: 0
+  blueText: {fileID: 0}
+  RedScore: 0
+  redText: {fileID: 0}
 --- !u!1 &997222013020053426
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +582,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  HUDScript: {fileID: 3516473440445985483}
   teamScript: {fileID: -502416393393332805}
   ragdollScript: {fileID: 9094184303110951204}
   maxHealth: 100
@@ -3777,10 +3803,13 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  HUDScript: {fileID: 3516473440445985483}
   leftHandIKScript: {fileID: 6362124894744148423}
   rightHandIKScript: {fileID: 6308237748616445914}
   playerMovementScript: {fileID: 9094184303110951204}
   teamScript: {fileID: -502416393393332805}
+  isRagdoll: 0
+  isRagdollChanged: 0
   bullet: {fileID: 900563049876251726, guid: fa12614c3444ccf4199ae830c00602cc, type: 3}
   shootFromHere: {fileID: 1812507796345271595}
   leftHold: {fileID: 4800774462733722757}
@@ -3788,6 +3817,7 @@ MonoBehaviour:
   gunTargetLocation: {fileID: 7902877409201875058}
   hips: {fileID: 1352257051476424257}
   rightHand: {fileID: 3107675154192725051}
+  ammoText: {fileID: 0}
   maxAmmo: 30
   fireRate: 0.25
   reloadTime: 1

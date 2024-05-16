@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerHealth : NetworkBehaviour
 {
+    public PlayerHUD HUDScript;
     public Team teamScript;
     public ragdollPlayerMovement ragdollScript;
 
@@ -44,6 +45,7 @@ public class PlayerHealth : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        HUDScript.healthValue = health;
         //if (!isLocalPlayer) return;
         regenTimer += Time.deltaTime;
 

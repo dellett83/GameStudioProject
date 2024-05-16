@@ -2,9 +2,12 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class gunBehaviour : NetworkBehaviour
 {
+    public PlayerHUD HUDScript;
+
     public DitzelGames.FastIK.FastIKFabric leftHandIKScript;
     public DitzelGames.FastIK.FastIKFabric rightHandIKScript;
 
@@ -32,9 +35,10 @@ public class gunBehaviour : NetworkBehaviour
     public GameObject hips;
     public GameObject rightHand;
 
+    public TMP_Text ammoText;
 
-    public float maxAmmo;
-    private float currentAmmo;
+    public int maxAmmo;
+    private int currentAmmo;
     public float fireRate;
     public float reloadTime;
     public float playerRecoil;
@@ -136,6 +140,8 @@ public class gunBehaviour : NetworkBehaviour
         {
             return;
         }
+
+        HUDScript.ammoCount = currentAmmo;
 
         if (isRagdoll != playerMovementScript.ragdoll) // Update our ragdoll state if it's not the same as the players
         {
