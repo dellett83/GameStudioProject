@@ -89,7 +89,9 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     {
         if (dead)
         {
+            ragdoll = true;
             despawnTimer += Time.deltaTime;
+            
             if (despawnTimer > despawnAfter)
             {
                 int length = spawnPoints.Length;
@@ -100,19 +102,22 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
                 healthScript.justDied = false;
 
+                ragdoll = false;
+
                 dead = false;
                 despawnTimer = 0;
             }
-            ragdoll = true;
+            
             return;
         }
-        else
-        { ragdoll = false; }
 
         if (!isLocalPlayer)
         {
             return;
         }
+
+        // Limit to how long can be in ragdoll mode
+        if (ragdollTimerStart) ragdollTimer += Time.deltaTime;
 
         // Make camera follow me if it's not follolwing anything (scuffed)
         if (thirsPersonCam.Follow == null)
@@ -124,10 +129,6 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             firstPersonCam.LookAt = cameraLookAt;
         }
 
-        
-
-        // Limit to how long can be in ragdoll mode
-        if (ragdollTimerStart) ragdollTimer += Time.deltaTime;
 
         // Turn ragdoll mode off and reset variables
         if (ragdollTimer >= ragdollTimerEnd)

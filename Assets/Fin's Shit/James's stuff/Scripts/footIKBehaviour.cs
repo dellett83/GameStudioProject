@@ -22,7 +22,9 @@ public class footIKBehaviour : NetworkBehaviour
     public DitzelGames.FastIK.FastIKFabric leftFootIKScript;
     public DitzelGames.FastIK.FastIKFabric rightFootIKScript;
 
+    [SyncVar]
     public ragdollPlayerMovement playerMovementScript;
+    [SyncVar(hook = nameof(OnRagdollStateChanged))]
     public bool isRagdoll = false;
 
     public float detectFloorHeight = 1.2f;
@@ -52,13 +54,26 @@ public class footIKBehaviour : NetworkBehaviour
             return;
         }
 
-        leftFootIKScript.enabled = false;
-        rightFootIKScript.enabled = false;
+        //leftFootIKScript.enabled = false;
+        //rightFootIKScript.enabled = false;
 
-        // If we're a ragdoll, let feet be a ragdoll and end script there
+        //// If we're a ragdoll, let feet be a ragdoll and end script there
+        //if (playerMovementScript.ragdoll)
+        //{
+        //    return;
+        //}
+
         if (playerMovementScript.ragdoll)
         {
+            if (!isRagdoll)
+            {
+                CmdSetRagdollState(true);
+            }
             return;
+        }
+        else if (isRagdoll)
+        {
+            CmdSetRagdollState(false);
         }
 
 
@@ -216,5 +231,22 @@ public class footIKBehaviour : NetworkBehaviour
         }
 
         return floatPoint;
+    }
+
+    [Command]
+    void CmdSetRagdollState(bool ragdollState)
+    {
+        isRagdoll = ragdollState;
+    }
+
+    void OnRagdollStateChanged(bool oldState, bool newState)
+    {
+        UpdateIKScripts(newState);
+    }
+
+    void UpdateIKScripts(bool ragdollState)
+    {
+        leftFootIKScript.enabled = !ragdollState;
+        rightFootIKScript.enabled = !ragdollState;
     }
 }

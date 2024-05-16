@@ -473,7 +473,7 @@ MonoBehaviour:
   ragdoll: 0
   rotationForce: 1e+9
   dead: 0
-  despawnAfter: 2
+  despawnAfter: 3
   cameraLookAt: {fileID: 3729468817498958832}
   spawnPoints:
   - {fileID: 7144801038825930701, guid: 5b371e997518f5b4983c86edcf137b74, type: 3}
@@ -563,6 +563,7 @@ MonoBehaviour:
   healthRegenTime: 4
   healthRegenRate: 0.1
   health: 100
+  justDied: 0
 --- !u!1 &1402262226638558142
 GameObject:
   m_ObjectHideFlags: 0
