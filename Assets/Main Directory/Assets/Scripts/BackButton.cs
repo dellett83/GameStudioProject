@@ -35,11 +35,4 @@ public class BackButton : MonoBehaviour
             NetworkManager.singleton.StopServer();
         }
     }
-
-    public void ReturnToGame()
-    {
-        GameObject pausePanel = GameObject.Find("Pause");
-        pausePanel.SetActive(false);
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-    }
 }
