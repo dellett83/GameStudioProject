@@ -10,6 +10,11 @@ public class GameManager : NetworkBehaviour
     public int scoreToWin;
 
     [SyncVar]
+    public bool blueWon = false;
+    [SyncVar]
+    public bool redWon = false;
+
+    [SyncVar]
     public int redScore = 0;
     [SyncVar]
     public int blueScore = 0;
@@ -35,14 +40,15 @@ public class GameManager : NetworkBehaviour
 
         if (blueScore >= scoreToWin)
         {
-            BlueWins();
+            blueWon = true;
         }
         else if (redScore >= scoreToWin)
         {
-            RedWins();
+            redWon = true;
         }
     }
 
+    [Server]
     public void PlayerDie(int teamID) // 1 is blue team, 2 is red team
     {
         // Do stuff, update score, start correct timer to respawn player
@@ -64,15 +70,5 @@ public class GameManager : NetworkBehaviour
         {
             Debug.Log("Player died not on a team");
         }
-    }
-
-    void BlueWins()
-    {
-        // idk
-    }
-
-    void RedWins()
-    {
-        // idk
     }
 }

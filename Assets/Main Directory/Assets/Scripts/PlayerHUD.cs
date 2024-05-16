@@ -9,6 +9,10 @@ public class PlayerHUD : NetworkBehaviour
 {
     public GameObject canvas;
 
+    public ragdollPlayerMovement playerMovementScript;
+
+    public Team teamScript;
+
     public int ammoCount;
     public TMP_Text ammoText;
 
@@ -21,6 +25,11 @@ public class PlayerHUD : NetworkBehaviour
     public float RedScore;
     public TMP_Text redText;
 
+    public GameObject winPanel;
+    public GameObject losePanel;
+
+    public bool gameOver = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +41,10 @@ public class PlayerHUD : NetworkBehaviour
         healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
         blueText = GameObject.Find("ScoreR").GetComponent<TMP_Text>();
         redText = GameObject.Find("ScoreL").GetComponent<TMP_Text>();
+        winPanel = GameObject.Find("Winner");
+        winPanel.SetActive(false);
+        losePanel = GameObject.Find("Loser");
+        losePanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -46,5 +59,34 @@ public class PlayerHUD : NetworkBehaviour
         blueText.text = GameManager.Instance.blueScore.ToString();
 
         redText.text = GameManager.Instance.redScore.ToString();
+
+        if (GameManager.Instance.blueWon && teamScript.teamID == 1 && !gameOver)
+        {
+            gameOver = true;
+            winPanel.SetActive(true);
+            playerMovementScript.ragdoll = true;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+        }
+        else if (GameManager.Instance.blueWon && teamScript.teamID == 2 && !gameOver)
+        {
+            gameOver = true;
+            losePanel.SetActive(true);
+            playerMovementScript.ragdoll = true;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+        }
+        else if (GameManager.Instance.redWon && teamScript.teamID == 1 && !gameOver)
+        {
+            gameOver = true;
+            losePanel.SetActive(true);
+            playerMovementScript.ragdoll = true;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+        }
+        else if (GameManager.Instance.redWon && teamScript.teamID == 2 && !gameOver)
+        {
+            gameOver = true;
+            winPanel.SetActive(true);
+            playerMovementScript.ragdoll = true;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+        }
     }
 }

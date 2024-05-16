@@ -321,6 +321,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   canvas: {fileID: 7195041042235197152, guid: 5a74c27be9b45284d8b5b94364895e04, type: 3}
+  playerMovementScript: {fileID: 9094184303110951204}
+  teamScript: {fileID: -502416393393332805}
   ammoCount: 0
   ammoText: {fileID: 0}
   healthValue: 0
@@ -329,6 +331,9 @@ MonoBehaviour:
   blueText: {fileID: 0}
   RedScore: 0
   redText: {fileID: 0}
+  winPanel: {fileID: 0}
+  losePanel: {fileID: 0}
+  gameOver: 0
 --- !u!1 &997222013020053426
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +399,6 @@ GameObject:
   - component: {fileID: 9203422312292136917}
   - component: {fileID: 505928142344320208}
   - component: {fileID: 8216622172733038814}
-  - component: {fileID: 8047367049237484434}
   m_Layer: 0
   m_Name: QuickRigCharacter_Hips
   m_TagString: Player
@@ -510,6 +514,8 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 7144801038825930701, guid: 5b371e997518f5b4983c86edcf137b74, type: 3}
   - {fileID: 6743669624866813170, guid: e5be51f7bae1f954b81a6dd175552f11, type: 3}
+  - {fileID: 8212102094539613826, guid: 2c0a87fc4e0016d4ab4b518cd752a77b, type: 3}
+  - {fileID: 1813457711031889415, guid: 933c5325c03b8be48bc9eb089ba548b1, type: 3}
 --- !u!114 &9203422312292136917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,14 +603,6 @@ MonoBehaviour:
   healthRegenRate: 0.1
   health: 100
   justDied: 0
---- !u!81 &8047367049237484434
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1352257051476424257}
-  m_Enabled: 1
 --- !u!1 &1402262226638558142
 GameObject:
   m_ObjectHideFlags: 0
