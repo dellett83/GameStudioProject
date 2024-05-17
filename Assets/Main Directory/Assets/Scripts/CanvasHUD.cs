@@ -41,6 +41,11 @@ public class CanvasHUD : MonoBehaviour
         SetupCanvas();
     }
 
+    private void Update()
+    {
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+    }
+
     // Invoked when the value of the text field changes.
     public void ValueChangeCheck()
     {

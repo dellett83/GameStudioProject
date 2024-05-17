@@ -26,13 +26,16 @@ public class bulletBehaviour : NetworkBehaviour
     {
         dropOffTimer += Time.deltaTime;
         // Current bullt drop accumulates over time by adding onto itself every frame (don't know if this is best way to do it)
-        currentBulletDrop += (bulletDrop * Time.deltaTime);
+        
 
         // Bullet will be instanciated in correct facing direciton so we just move it forward
         transform.Translate(Vector3.forward * bulletSpeed * Time.deltaTime, Space.Self);
         // Bullet moves down according to world space
-        if(dropOffTimer > dropOffAfter) transform.Translate(-Vector3.up * currentBulletDrop * Time.deltaTime, Space.World);
-
+        if (dropOffTimer > dropOffAfter)
+        {
+            transform.Translate(-Vector3.up * currentBulletDrop * Time.deltaTime, Space.World);
+            currentBulletDrop += (bulletDrop * Time.deltaTime);
+        }
     }
 
     // Bullet destroys when it hits something
@@ -42,9 +45,9 @@ public class bulletBehaviour : NetworkBehaviour
         {
             GameObject seeIfWorks = col.transform.gameObject;
 
-            int _damage = Random.Range(8, 11);
+            int _damage = Random.Range(20, 25);
 
-            if (seeIfWorks.name == "QuickRigCharacter_Head") _damage = 15;
+            if (seeIfWorks.name == "QuickRigCharacter_Head") _damage = 30;
 
             PlayerHealth playerHealth = seeIfWorks.GetComponent<PlayerHealth>();
             bool found = false;

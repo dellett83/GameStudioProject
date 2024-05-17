@@ -477,9 +477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '30
-
-'
+  m_text: 20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0e37780376342614f8419a58b4680e1b, type: 2}
   m_sharedMaterial: {fileID: -2581880864076333253, guid: 0e37780376342614f8419a58b4680e1b, type: 2}
@@ -1405,7 +1403,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '25 to Win
+  m_text: '15 to Win
 
 '
   m_isRightToLeft: 0
@@ -2021,7 +2019,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 30
+  m_text: 20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0e37780376342614f8419a58b4680e1b, type: 2}
   m_sharedMaterial: {fileID: -2581880864076333253, guid: 0e37780376342614f8419a58b4680e1b, type: 2}

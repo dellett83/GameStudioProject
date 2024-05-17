@@ -443,7 +443,7 @@ MonoBehaviour:
   onlineScene: Assets/Main Directory/Assets/Scenes/Room.unity
   transport: {fileID: 116012263}
   networkAddress: localhost
-  maxConnections: 10
+  maxConnections: 20
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}

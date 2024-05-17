@@ -334,6 +334,7 @@ MonoBehaviour:
   winPanel: {fileID: 0}
   losePanel: {fileID: 0}
   pausePanel: {fileID: 0}
+  joinTeamPanel: {fileID: 0}
   gameOver: 0
 --- !u!1 &997222013020053426
 GameObject:
@@ -528,6 +529,26 @@ MonoBehaviour:
   - {fileID: 6743669624866813170, guid: e5be51f7bae1f954b81a6dd175552f11, type: 3}
   - {fileID: 8212102094539613826, guid: 2c0a87fc4e0016d4ab4b518cd752a77b, type: 3}
   - {fileID: 1813457711031889415, guid: 933c5325c03b8be48bc9eb089ba548b1, type: 3}
+  - {fileID: 449583811418747190, guid: a45af9fd7708ebf4c8eb40b25f506823, type: 3}
+  - {fileID: 8838075143434576832, guid: b4081655cec87f24f9f2c167273b7d80, type: 3}
+  - {fileID: 5838933265274566480, guid: 2d93479260bc74a4ba962e55e925b695, type: 3}
+  - {fileID: 8219607730159932152, guid: ddbe4ed1f89f438438ff2db36a2a7571, type: 3}
+  - {fileID: 7389096683005080221, guid: f409845cdbdcd47428947dd5a532433a, type: 3}
+  - {fileID: 4836091549116788787, guid: 8a1c298d427c45244a8eecff9bebf1f5, type: 3}
+  - {fileID: 4863593651854985100, guid: 8e23894bac0d4344fab36618112d4266, type: 3}
+  - {fileID: 8165392782584942539, guid: a9fc3806f692c4549bb79b1b424a7df9, type: 3}
+  - {fileID: 6018131745419365337, guid: 575488d51f6347f4297c4b4886e0281e, type: 3}
+  - {fileID: 8185064593923117396, guid: 6bec3385166ed874db1101c50fca2621, type: 3}
+  - {fileID: 3040981971094825412, guid: 4d4c9c688e8c35944bc9028e4241f64e, type: 3}
+  - {fileID: 8423977283279360788, guid: c81386c6c17d7d44683b379e6c5a5c30, type: 3}
+  - {fileID: 5037408896629454183, guid: 7cf93659b96b45245904fac7c5dfecb9, type: 3}
+  - {fileID: 7461264687534898841, guid: 41a74ea398f653b428afcd2ac5c52dce, type: 3}
+  - {fileID: 1150043082798161394, guid: a8401d5360eea0745b257e20c04f1179, type: 3}
+  - {fileID: 6423446833937762853, guid: 5ae71eb2fe9477742b8d76b4ca24a8a4, type: 3}
+  - {fileID: 5805246369156845183, guid: c02644ddfc8158149a8f3f4c006fb332, type: 3}
+  - {fileID: 8761700532410505662, guid: ddd32bd3b2f37b14cb871708995bd83d, type: 3}
+  - {fileID: 8857303056848971163, guid: 0a55d2a0adc15aa49a3fdc369c31ee0a, type: 3}
+  - {fileID: 6515124887239532492, guid: 75b518acc051fac498dfde043645cf82, type: 3}
 --- !u!114 &9203422312292136917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4523,9 +4544,9 @@ MonoBehaviour:
   rightHand: {fileID: 3107675154192725051}
   gunShot: {fileID: 3919209872673296931}
   ammoText: {fileID: 0}
-  maxAmmo: 30
+  maxAmmo: 20
   fireRate: 0.25
-  reloadTime: 1
+  reloadTime: 2.5
   playerRecoil: 0
 --- !u!82 &3919209872673296931
 AudioSource:
