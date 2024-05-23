@@ -22,6 +22,9 @@ public class gunBehaviour : NetworkBehaviour
     [SyncVar]
     public bool isRagdollChanged = false;
 
+    [SyncVar(hook = nameof(OnPlayShotSoundStateChanged))]
+    public bool playShotSound = false;
+
     private Camera camera;
     private GameObject crosshair;
 
@@ -143,6 +146,8 @@ public class gunBehaviour : NetworkBehaviour
             return;
         }
 
+        if (playShotSound) CmdSetPlayShotSoundState(false);
+
         HUDScript.ammoCount = currentAmmo;
 
         if (isRagdoll != playerMovementScript.ragdoll) // Update our ragdoll state if it's not the same as the players
@@ -223,7 +228,7 @@ public class gunBehaviour : NetworkBehaviour
         // Shoots bullet if is able to shoot
         if (!fireing && !isRagdoll && !reloading && currentAmmo > 0 && Input.GetMouseButton(0))
         {
-            gunShot.Play();
+            CmdSetPlayShotSoundState(true);
             currentAmmo--;
             // Creates a bullet pointing in the correct direciton
             //GameObject spawnBullet = Instantiate(bullet, shootFromHere.transform.position, transform.rotation);
@@ -273,6 +278,26 @@ public class gunBehaviour : NetworkBehaviour
         if (!ragdollState)
         {
             transform.position = gunTargetLocation.transform.position;
+        }
+    }
+
+    // GUN SOUND SYNCING
+    [Command]
+    void CmdSetPlayShotSoundState(bool playShotSoundState)
+    {
+        playShotSound = playShotSoundState;
+    }
+
+    void OnPlayShotSoundStateChanged(bool oldState, bool newState)
+    {
+        PlayAShotSound(newState);
+    }
+
+    void PlayAShotSound(bool newState)
+    {
+        if (newState)
+        {
+            gunShot.Play();
         }
     }
 }

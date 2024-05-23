@@ -20,12 +20,17 @@ public class PlayerHealth : NetworkBehaviour
     private float regenTimer = 0;
 
     [SyncVar]
+    private bool justDamaged = false;
+
+    [SyncVar]
     public bool justDied = false;
 
     public AudioSource AS;
 
     public AudioClip[] damageSounds;
-    public AudioClip deathSound;
+
+    [SyncVar(hook = nameof(OnPlayDamageSoundChanged))]
+    public bool playDamageSound = false;
 
     public AudioSource almostDeadSound;
     [SyncVar]
@@ -42,6 +47,7 @@ public class PlayerHealth : NetworkBehaviour
 
     void FixedUpdate()
     {
+        
         //if (!isLocalPlayer) return;
         if (regenTimer > healthRegenTime && health < maxHealth)
         {
@@ -79,6 +85,13 @@ public class PlayerHealth : NetworkBehaviour
         {
             health = 0;
         }
+
+        if (playDamageSound) CmdSetPlayDamageSoundState(false);
+
+        if (isLocalPlayer)
+        {
+            
+        }
     }
 
     //[ServerCallback]
@@ -93,10 +106,8 @@ public class PlayerHealth : NetworkBehaviour
         // If me and bullet are on same team, I don't get damaged
         if (_bulletsTeam == teamScript.teamID) return;
 
-        int length = damageSounds.Length;
-        int rand = Random.Range(0, length);
-        AS.clip = damageSounds[rand];
-        AS.Play();
+
+        CmdSetPlayDamageSoundState(true);
 
         health -= _damage;
 
@@ -106,10 +117,32 @@ public class PlayerHealth : NetworkBehaviour
 
     void Die(int _teamID)
     {
-        AS.clip = deathSound;
-        AS.Play();
         justDied = true;
         ragdollScript.dead = true;
         GameManager.Instance.PlayerDie(_teamID);
+    }
+
+    // DAMAGE SOUND SYNCING
+    [Command]
+    void CmdSetPlayDamageSoundState(bool playDamageSoundState)
+    {
+        playDamageSound = playDamageSoundState;
+    }
+
+    void OnPlayDamageSoundChanged(bool oldState, bool newState)
+    {
+        PlayDamageSound(newState);
+    }
+
+    void PlayDamageSound(bool newState)
+    {
+        if (newState)
+        {
+            int length = damageSounds.Length;
+            int rand = Random.Range(0, length);
+            AS.clip = damageSounds[rand];
+            AS.Play();
+            //playDamageSound = false;
+        }
     }
 }

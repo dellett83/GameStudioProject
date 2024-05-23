@@ -407,6 +407,7 @@ GameObject:
   - component: {fileID: 3823007101773495478}
   - component: {fileID: 1415742926295133638}
   - component: {fileID: 2237022407651579535}
+  - component: {fileID: 6572019562051912384}
   m_Layer: 0
   m_Name: QuickRigCharacter_Hips
   m_TagString: Player
@@ -504,7 +505,7 @@ MonoBehaviour:
   headFloatingForce: 2500
   floatingHeight: 0.55
   floatingForce: 15000
-  floatForceDampener: 350
+  floatForceDampener: 1000
   jumpForce: 4
   movementAcceleration: 200
   movementSpeedLimit: 2
@@ -519,6 +520,8 @@ MonoBehaviour:
   dead: 0
   despawnAfter: 3
   dustPause: 0
+  playDeathSound: 0
+  playJumpSound: 0
   deathSound: {fileID: 8025213910441697647}
   jumpSound: {fileID: 3716595471126384693}
   diveSound: {fileID: 6967710774593460984}
@@ -549,6 +552,7 @@ MonoBehaviour:
   - {fileID: 8761700532410505662, guid: ddd32bd3b2f37b14cb871708995bd83d, type: 3}
   - {fileID: 8857303056848971163, guid: 0a55d2a0adc15aa49a3fdc369c31ee0a, type: 3}
   - {fileID: 6515124887239532492, guid: 75b518acc051fac498dfde043645cf82, type: 3}
+  audioListener: {fileID: 6572019562051912384}
 --- !u!114 &9203422312292136917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,7 +650,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e371366aa7bac9a4aa79d47b7d9b2379, type: 3}
   - {fileID: 8300000, guid: 776f9705e89edfb4aaf0a57b36be4d15, type: 3}
   - {fileID: 8300000, guid: d1a1571d674022344add45d93e5e07a5, type: 3}
-  deathSound: {fileID: 8300000, guid: 10393be0ae9cb9f4287a598700c5807a, type: 3}
+  playDamageSound: 0
   almostDeadSound: {fileID: 2237022407651579535}
   playAlmostDead: 1
 --- !u!82 &8025213910441697647
@@ -1225,6 +1229,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &6572019562051912384
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352257051476424257}
+  m_Enabled: 0
 --- !u!1 &1402262226638558142
 GameObject:
   m_ObjectHideFlags: 0
@@ -4502,6 +4514,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 47fcacac08014a74a9d546e8adb79fe5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3919209872673296931}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 47fcacac08014a74a9d546e8adb79fe5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7155333344905704097}
   m_SourcePrefab: {fileID: 100100000, guid: 47fcacac08014a74a9d546e8adb79fe5, type: 3}
 --- !u!4 &2398991781896761258 stripped
 Transform:
@@ -4535,6 +4550,7 @@ MonoBehaviour:
   teamScript: {fileID: -502416393393332805}
   isRagdoll: 0
   isRagdollChanged: 0
+  playShotSound: 0
   bullet: {fileID: 900563049876251726, guid: fa12614c3444ccf4199ae830c00602cc, type: 3}
   shootFromHere: {fileID: 1812507796345271595}
   leftHold: {fileID: 4800774462733722757}
@@ -4568,10 +4584,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 5
+  MaxDistance: 15
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -4604,7 +4620,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4644,3 +4660,38 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7155333344905704097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3026769677322417424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 2398991781896761258}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  bufferResetMultiplier: 3
+  changedDetection: 1
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01

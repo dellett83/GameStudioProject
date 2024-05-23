@@ -50,6 +50,12 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     [SyncVar(hook = nameof(OnDustPauseChanged))]
     public bool dustPause = false;
 
+    [SyncVar(hook = nameof(OnPlayDeathSoundChanged))]
+    public bool playDeathSound = false;
+
+    [SyncVar(hook = nameof(OnPlayJumpSoundChanged))]
+    public bool playJumpSound = false;
+
     public AudioSource deathSound;
     public AudioSource jumpSound;
     public AudioSource diveSound;
@@ -64,6 +70,8 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
     public Transform[] spawnPoints;
 
+    public AudioListener audioListener;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +84,12 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
             firstPersonCam = GameObject.Find("Scope Camera").GetComponent<CinemachineVirtualCamera>();
 
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+
+            audioListener.enabled = true;
+        }
+        else
+        {
+            audioListener.enabled = false;
         }
     }
 
@@ -104,7 +118,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         {
             if (!once)
             {
-                deathSound.Play();
+                
                 thirsPersonCam.Follow = null;
                 thirsPersonCam.LookAt = null;
 
@@ -118,6 +132,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
 
         if (dead)
         {
+            CmdSetPlayDeathSoundState(true);
             ragdoll = true;
             despawnTimer += Time.deltaTime;
             
@@ -134,6 +149,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
                 ragdoll = false;
 
                 dead = false;
+                CmdSetPlayDeathSoundState(false);
                 despawnTimer = 0;
             }
             
@@ -348,7 +364,7 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
         // Jump if press space
         if (canJump && Input.GetKeyDown(KeyCode.Space))
         {
-            jumpSound.Play();
+            CmdSetPlayJumpSoundState(true);
             // Apply force upwards to jump
             hipsRB.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
 
@@ -413,5 +429,46 @@ public class ragdollPlayerMovement : NetworkBehaviour //MonoBehaviour
     void OnDustPauseChanged(bool oldValue, bool newValue)
     {
         dustParticles.SetActive(!newValue);
+    }
+
+    // DEATH SOUND SYNCING
+    [Command]
+    void CmdSetPlayDeathSoundState(bool playDeathSoundState)
+    {
+        playDeathSound = playDeathSoundState;
+    }
+
+    void OnPlayDeathSoundChanged(bool oldState, bool newState)
+    {
+        PlayDeathSound(newState);
+    }
+
+    void PlayDeathSound(bool newState)
+    {
+        if (newState)
+        {
+            deathSound.Play();
+        }
+    }
+
+    // JUMP SOUND SYNCING
+    [Command]
+    void CmdSetPlayJumpSoundState(bool playJumpSoundState)
+    {
+        playJumpSound = playJumpSoundState;
+    }
+
+    void OnPlayJumpSoundChanged(bool oldState, bool newState)
+    {
+        PlayJumpSound(newState);
+    }
+
+    void PlayJumpSound(bool newState)
+    {
+        if (newState)
+        {
+            jumpSound.Play();
+            CmdSetPlayJumpSoundState(false); ;
+        }
     }
 }

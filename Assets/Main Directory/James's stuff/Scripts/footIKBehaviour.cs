@@ -36,8 +36,8 @@ public class footIKBehaviour : NetworkBehaviour
     private Vector3 rightTargetTarget;
 
     // For audio
-    private bool playLeftSound = false;
-    private bool playRightSound = false;
+    [SyncVar(hook = nameof(OnPlaySoundStateChanged))]
+    private bool playSound = false;
 
     public AudioSource footstepSound;
 
@@ -58,8 +58,8 @@ public class footIKBehaviour : NetworkBehaviour
             return;
         }
 
-        //leftFootIKScript.enabled = false;
-        //rightFootIKScript.enabled = false;
+        leftFootIKScript.enabled = false;
+        rightFootIKScript.enabled = false;
 
         //// If we're a ragdoll, let feet be a ragdoll and end script there
         //if (playerMovementScript.ragdoll)
@@ -107,7 +107,7 @@ public class footIKBehaviour : NetworkBehaviour
 
                 leftLerpingToFinal = false;
 
-                playLeftSound = true;
+                CmdSetPlaySoundState(true);
             }
 
             if (!leftLerpingToFinal)
@@ -125,16 +125,9 @@ public class footIKBehaviour : NetworkBehaviour
                 if (distanceToTargetTarget < 0.1)
                 {
                     // Foot is on ground (i think)
-
-                    if (playLeftSound)
+                    if (playSound)
                     {
-                        // Code to play footstep sound
-                        int length = footstepSounds.Length;
-                        int rand = Random.Range(0, length);
-                        footstepSound.clip = footstepSounds[rand];
-                        footstepSound.Play();
-
-                        playLeftSound = false;
+                        CmdSetPlaySoundState(false);
                     }
                 }
             }
@@ -168,7 +161,7 @@ public class footIKBehaviour : NetworkBehaviour
 
                 rightLerpingToFinal = false;
 
-                playRightSound = true;
+                CmdSetPlaySoundState(true);
             }
 
             if (!rightLerpingToFinal)
@@ -186,16 +179,9 @@ public class footIKBehaviour : NetworkBehaviour
                 if (distanceToTargetTarget < 0.1)
                 {
                     // Foot is on ground (i think)
-
-                    if (playRightSound)
+                    if (playSound)
                     {
-                        // Code to play footstep sound
-                        int length = footstepSounds.Length;
-                        int rand = Random.Range(0, length);
-                        footstepSound.clip = footstepSounds[rand];
-                        footstepSound.Play();
-
-                        playRightSound = false;
+                        CmdSetPlaySoundState(false);
                     }
                 }
             }
@@ -253,12 +239,29 @@ public class footIKBehaviour : NetworkBehaviour
 
     void OnRagdollStateChanged(bool oldState, bool newState)
     {
-        UpdateIKScripts(newState);
+        leftFootIKScript.enabled = !newState;
+        rightFootIKScript.enabled = !newState;
     }
 
-    void UpdateIKScripts(bool ragdollState)
+    [Command]
+    void CmdSetPlaySoundState(bool playSoundState)
     {
-        leftFootIKScript.enabled = !ragdollState;
-        rightFootIKScript.enabled = !ragdollState;
+        playSound = playSoundState;
+    }
+
+    void OnPlaySoundStateChanged(bool oldState, bool newState)
+    {
+        PlayFootstepSound(newState);
+    }
+
+    void PlayFootstepSound(bool newState)
+    {
+        if(newState)
+        {
+            int length = footstepSounds.Length;
+            int rand = Random.Range(0, length);
+            footstepSound.clip = footstepSounds[rand];
+            footstepSound.Play();
+        }
     }
 }
